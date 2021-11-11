@@ -28,7 +28,8 @@ public class GlavniProzor extends JFrame {
 		ImageIcon image = new ImageIcon("images/university.png");
 		setIconImage(image.getImage());
 		
-		
+		MenuBar menu = new MenuBar();
+		setJMenuBar(menu);
 		
 	}
 	
