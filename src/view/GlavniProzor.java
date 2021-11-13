@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -28,7 +29,11 @@ public class GlavniProzor extends JFrame {
 		ImageIcon image = new ImageIcon("images/university.png");
 		setIconImage(image.getImage());
 		
+		MenuBar menu = new MenuBar();
+		setJMenuBar(menu);
 		
+		ToolBar toolbar = new ToolBar();
+		add(toolbar, BorderLayout.NORTH);
 		
 	}
 	
