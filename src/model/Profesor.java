@@ -8,10 +8,10 @@ public class Profesor {
 	private String prezime;
 	private String ime;
 	private LocalDate datumRodjenja;
-	private String adresaStanovanja;
+	private Adresa adresaStanovanja;
 	private String kontaktTelefon;
 	private String emailAdresa;
-	private String adresaKancelarije;
+	private Adresa adresaKancelarije;
 	private String brojLicneKarte;
 	private String zvanje;
 	private int godineStaza;
@@ -25,8 +25,8 @@ public class Profesor {
 	}
 
 
-	public Profesor(String prezime, String ime, LocalDate datumRodjenja, String adresaStanovanja, String kontaktTelefon,
-			String emailAdresa, String adresaKancelarije, String brojLicneKarte, String zvanje, int godineStaza,
+	public Profesor(String prezime, String ime, LocalDate datumRodjenja, Adresa adresaStanovanja, String kontaktTelefon,
+			String emailAdresa, Adresa adresaKancelarije, String brojLicneKarte, String zvanje, int godineStaza,
 			ArrayList<Predmet> spisakPredmeta) {
 		super();
 		this.prezime = prezime;
@@ -76,12 +76,12 @@ public class Profesor {
 	}
 
 
-	public String getAdresaStanovanja() {
+	public Adresa getAdresaStanovanja() {
 		return adresaStanovanja;
 	}
 
 
-	public void setAdresaStanovanja(String adresaStanovanja) {
+	public void setAdresaStanovanja(Adresa adresaStanovanja) {
 		this.adresaStanovanja = adresaStanovanja;
 	}
 
@@ -106,12 +106,12 @@ public class Profesor {
 	}
 
 
-	public String getAdresaKancelarije() {
+	public Adresa getAdresaKancelarije() {
 		return adresaKancelarije;
 	}
 
 
-	public void setAdresaKancelarije(String adresaKancelarije) {
+	public void setAdresaKancelarije(Adresa adresaKancelarije) {
 		this.adresaKancelarije = adresaKancelarije;
 	}
 
