@@ -33,7 +33,12 @@ public class GlavniProzor extends JFrame {
 		setJMenuBar(menu);
 		
 		ToolBar toolbar = new ToolBar();
+		Dimension d = getSize();
+		toolbar.setPreferredSize(new Dimension(d.width, 40));
 		add(toolbar, BorderLayout.NORTH);
+		
+		StatusBar statusBar = new StatusBar();
+		add(statusBar, BorderLayout.SOUTH);
 		
 	}
 	
