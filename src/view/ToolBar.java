@@ -75,7 +75,7 @@ public class ToolBar extends JToolBar {
 		add(btnSearch);
 		
 		setFloatable(false);
-		setBackground(new Color(126, 125, 123));
+		setBackground(new Color(175, 175, 175));
 		
 	}
 	
