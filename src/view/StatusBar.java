@@ -24,7 +24,6 @@ public class StatusBar extends JPanel {
 	public StatusBar() {
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(10,23));
-		
 		JLabel labela = new JLabel("  Studentska služba");
 		
 		DateFormat timeFormat = new SimpleDateFormat("HH:mm dd.MM.yyyy.  ");
@@ -55,6 +54,6 @@ public class StatusBar extends JPanel {
 		
 		add(labela,BorderLayout.WEST);
 		add(timeLabela,BorderLayout.EAST);
-		setBackground(new Color(128, 120, 100));
+		setBackground(new Color(175, 175, 175));
 	}
 }
