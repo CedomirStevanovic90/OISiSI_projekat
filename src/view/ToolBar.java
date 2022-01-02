@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
+import controller.AddButtonListener;
+
 public class ToolBar extends JToolBar {
 
 	/**
@@ -30,6 +32,7 @@ public class ToolBar extends JToolBar {
 		btnAdd.setToolTipText("Add");
 		btnAdd.setMnemonic(KeyEvent.VK_A);
 		btnAdd.setIcon(new ImageIcon("images/plus_button.png"));
+		btnAdd.addActionListener(new AddButtonListener());
 		add(btnAdd);
 		
 		addSeparator();

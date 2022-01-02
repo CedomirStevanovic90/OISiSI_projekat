@@ -9,6 +9,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import controller.AddButtonListener;
+
 public class MenuBar extends JMenuBar {
 
 	/**
@@ -24,6 +26,7 @@ public class MenuBar extends JMenuBar {
 		JMenuItem miNew = new JMenuItem("New", new ImageIcon("images/add_button.png"));
 		miNew.setMnemonic(KeyEvent.VK_N);
 		miNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		miNew.addActionListener(new AddButtonListener());
 		
 		JMenuItem miSave = new JMenuItem("Save", new ImageIcon("images/save_button.png"));
 		miSave.setMnemonic(KeyEvent.VK_S);

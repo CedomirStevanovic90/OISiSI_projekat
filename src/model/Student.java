@@ -1,12 +1,17 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import enumeracije.StatusStudenta;
 
-public class Student {
+public class Student implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String prezime;
 	private String ime;
 	private LocalDate datumRodjenja;
@@ -23,17 +28,9 @@ public class Student {
 	
 	//konstruktori
 	
-	
-	public Student() {
-		super();
-	}
-
-
-
 	public Student(String prezime, String ime, LocalDate datumRodjenja, Adresa adresaStanovanja, String kontaktTelefon,
 			String emailAdresa, String brojIndeksa, String godinaUpisa, int trenutnaGodStudija, StatusStudenta status,
-			double prosecnaOcena, ArrayList<Ocena> polozeniIspiti, ArrayList<Predmet> nepolozeniIspiti) {
-		super();
+			double prosecnaOcena) {
 		this.prezime = prezime;
 		this.ime = ime;
 		this.datumRodjenja = datumRodjenja;

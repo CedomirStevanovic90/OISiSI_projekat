@@ -7,6 +7,11 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import controller.ControllerPredmet;
+import controller.ControllerProfesor;
+import controller.ControllerStudent;
+import model.DataBase;
+
 public class GlavniProzor extends JFrame {
 	
 	/**
@@ -14,9 +19,16 @@ public class GlavniProzor extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-
+	static TabbedPane tabbedPane;
+	static GlavniProzor glavniProzor;
+	static ControllerStudent controllerStudent = new ControllerStudent();
+	static ControllerProfesor controllerProfesor = new ControllerProfesor();
+	static ControllerPredmet controllerPredmet = new ControllerPredmet();
+	static DataBase dataBase;
+	
 	GlavniProzor(){
 		
+		glavniProzor = this;
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = kit.getScreenSize();
 		int screenHeight = screenSize.height;
@@ -29,6 +41,13 @@ public class GlavniProzor extends JFrame {
 		ImageIcon image = new ImageIcon("images/university.png");
 		setIconImage(image.getImage());
 		
+		dataBase = new DataBase();
+		try {
+			dataBase.deserialize();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		MenuBar menu = new MenuBar();
 		setJMenuBar(menu);
 		
@@ -40,10 +59,37 @@ public class GlavniProzor extends JFrame {
 		StatusBar statusBar = new StatusBar();
 		add(statusBar, BorderLayout.SOUTH);
 		
-		TabbedPane tabbedPane = new TabbedPane();
+		tabbedPane = new TabbedPane();
 		add(tabbedPane, BorderLayout.CENTER);
 		
 	}
 	
-
+	public static TabbedPane getTabbedPane() {
+		if(tabbedPane == null)
+			tabbedPane = new TabbedPane();
+		return tabbedPane;
+	}
+	public static GlavniProzor getGlavniProzor() {
+		if(glavniProzor == null)
+			glavniProzor = new GlavniProzor();
+		return glavniProzor;
+	}
+	
+	public static ControllerStudent getControllerStudent() {
+		return controllerStudent;
+	}
+	public static ControllerProfesor getControllerProfesor() {
+		return controllerProfesor;
+	}
+	public static ControllerPredmet getControllerPredmet() {
+		return controllerPredmet;
+	}
+	
+	public static void serialize() {
+		try {
+			dataBase.serialize();
+		}catch(Exception exc){
+			exc.printStackTrace();
+		}
+	}
 }

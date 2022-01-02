@@ -1,6 +1,8 @@
 package enumeracije;
 
-public enum GodinaIzvodjenja {
+import java.io.Serializable;
+
+public enum GodinaIzvodjenja implements Serializable{
 	
 	PRVA,
 	DRUGA,
