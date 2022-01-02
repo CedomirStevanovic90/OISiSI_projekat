@@ -1,6 +1,8 @@
 package enumeracije;
 
-public enum Semestar {
+import java.io.Serializable;
+
+public enum Semestar implements Serializable{
 	
 	LETNJI,
 	ZIMSKI

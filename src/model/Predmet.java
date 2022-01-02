@@ -18,12 +18,6 @@ public class Predmet {
 	
 	//konstruktori
 	
-	
-	public Predmet() {
-		super();
-	}
-
-
 	public Predmet(String sifraPredmeta, String nazivPredmeta, Semestar semestar, GodinaIzvodjenja godinaIzvodjenja,
 			Profesor profesor, int espbPoeni, ArrayList<Student> listaPolozenih, ArrayList<Student> listaNepolozenih) {
 		super();
@@ -39,11 +33,9 @@ public class Predmet {
 	
 	//get i set metode
 
-
 	public String getSifraPredmeta() {
 		return sifraPredmeta;
 	}
-
 
 	public void setSifraPredmeta(String sifraPredmeta) {
 		this.sifraPredmeta = sifraPredmeta;
