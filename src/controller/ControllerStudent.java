@@ -32,4 +32,13 @@ public class ControllerStudent {
 	public void setListaStudenti(ArrayList<Student> listaStudenti) {
 		this.listaStudenti = listaStudenti;
 	}
+
+	public void obrisiStudenta(String indexStudenta) {
+		// TODO Auto-generated method stub
+		for(Student s : listaStudenti)
+			if(s.getBrojIndeksa().equals(indexStudenta)) {
+				listaStudenti.remove(s);
+				break;
+			}
+	}
 }

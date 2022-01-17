@@ -10,6 +10,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import controller.AddButtonListener;
+import controller.DeleteButtonListener;
 
 public class MenuBar extends JMenuBar {
 
@@ -83,6 +84,7 @@ public class MenuBar extends JMenuBar {
 		JMenuItem miDelete = new JMenuItem("Delete", new ImageIcon("images/delete_button.png"));
 		miDelete.setMnemonic(KeyEvent.VK_D);
 		miDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
+		miDelete.addActionListener(new DeleteButtonListener());
 		
 		editMenu.add(miEdit);
 		editMenu.addSeparator();

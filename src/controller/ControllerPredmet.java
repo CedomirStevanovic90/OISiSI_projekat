@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import model.Predmet;
+import model.Profesor;
 
 public class ControllerPredmet {
 
@@ -30,6 +31,15 @@ public class ControllerPredmet {
 
 	public void setListaPredmeti(ArrayList<Predmet> listaPredmeta) {
 		this.listaPredmeta = listaPredmeta;
+	}
+
+	public void obrisiPredmet(String sifraPredmeta) {
+		// TODO Auto-generated method stub
+				for(Predmet p : listaPredmeta)
+					if(p.getSifraPredmeta().equals(sifraPredmeta)) {
+						listaPredmeta.remove(p);
+						break;
+					}
 	}
 	
 }

@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import model.Profesor;
+import model.Student;
 
 public class ControllerProfesor {
 
@@ -32,12 +33,21 @@ public class ControllerProfesor {
 		this.listaProfesora = listaProfesora;
 	}
 	
-	public Profesor nadjiProfesora(String brLicKarte) {
+	public Profesor nadjiProfesora(String brojLicneKarte) {
 		Profesor ret = null;
-		for(Profesor s : listaProfesora)
-			if(s.getBrojLicneKarte().equals(brLicKarte))
-				ret = s;
+		for(Profesor p : listaProfesora)
+			if(p.getBrojLicneKarte().equals(brojLicneKarte))
+				ret = p;
 		return ret;
+	}
+
+	public void obrisiProfesora(String brojLicneKarte) {
+		// TODO Auto-generated method stub
+		for(Profesor p : listaProfesora)
+			if(p.getBrojLicneKarte().equals(brojLicneKarte)) {
+				listaProfesora.remove(p);
+				break;
+			}
 	}
 	
 }

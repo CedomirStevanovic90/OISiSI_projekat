@@ -13,6 +13,7 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import controller.AddButtonListener;
+import controller.DeleteButtonListener;
 
 public class ToolBar extends JToolBar {
 
@@ -55,6 +56,7 @@ public class ToolBar extends JToolBar {
 		btnDelete.setToolTipText("Delete");
 		btnDelete.setMnemonic(KeyEvent.VK_D);
 		btnDelete.setIcon(new ImageIcon("images/delete_button.png"));
+		btnDelete.addActionListener(new DeleteButtonListener());
 		add(btnDelete);
 		
 		add(Box.createHorizontalGlue());
