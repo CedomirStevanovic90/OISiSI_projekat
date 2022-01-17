@@ -11,6 +11,7 @@ import javax.swing.KeyStroke;
 
 import controller.AddButtonListener;
 import controller.DeleteButtonListener;
+import controller.EditButtonListener;
 
 public class MenuBar extends JMenuBar {
 
@@ -80,6 +81,7 @@ public class MenuBar extends JMenuBar {
 		JMenuItem miEdit = new JMenuItem("Edit", new ImageIcon("images/edit_button.png"));
 		miEdit.setMnemonic(KeyEvent.VK_E);
 		miEdit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
+		miEdit.addActionListener(new EditButtonListener());
 		
 		JMenuItem miDelete = new JMenuItem("Delete", new ImageIcon("images/delete_button.png"));
 		miDelete.setMnemonic(KeyEvent.VK_D);

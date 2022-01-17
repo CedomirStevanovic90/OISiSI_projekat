@@ -74,6 +74,7 @@ public class GlavniProzor extends JFrame {
 		});
 		add(tabbedPane, BorderLayout.CENTER);
 		
+		
 	}
 	
 	public static TabbedPane getTabbedPane() {

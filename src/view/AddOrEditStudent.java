@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import controller.Checker;
@@ -31,17 +32,21 @@ public class AddOrEditStudent extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	public static AddOrEditStudent inst;
+	private Student student;
 
 	private ControllerStudent controller;
 	private static int brTacnihPolja = 0;
 	static JTextField textIme, textPrezime, textDatRodj, textAdrStan, textBrTel, textEmail, textBrIndexa, textGodUpisa;
 	public static JButton potvrdi;
+	private ErrorDialog err;
 	
 	public AddOrEditStudent(int mode, AddOrEditDialog dialog) {
 		
 		inst = this;
 		controller = GlavniProzor.getControllerStudent();
 		setLayout(new BorderLayout());
+		if(mode == AddOrEditDialog.editMode)
+			setPreferredSize(new Dimension(400,450));
 		
 		JPanel glavni = new JPanel();
 		glavni.setLayout(new BoxLayout(glavni, BoxLayout.Y_AXIS));
@@ -133,6 +138,45 @@ public class AddOrEditStudent extends JPanel {
 			add(dugmad,BorderLayout.SOUTH);
 		}
 		
+		if(mode == AddOrEditDialog.editMode) {
+			
+			int selectedStudent = TabelaStudenti.tabelaStudenti.getSelectedRow();
+			String indexStudenta = (TabelaStudenti.tabelaStudenti.getValueAt(selectedStudent, 0)).toString();
+				
+			student = controller.nadjiStudenta(indexStudenta);
+				
+			textIme.setText(student.getIme());
+			textPrezime.setText(student.getPrezime());
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+			textDatRodj.setText(dtf.format(student.getDatumRodjenja()));
+			textAdrStan.setText(student.getAdresaStanovanja().getUlica() + "," + student.getAdresaStanovanja().getBroj() + "," + student.getAdresaStanovanja().getGrad() + "," + student.getAdresaStanovanja().getDrzava());
+			textBrTel.setText(student.getKontaktTelefon());
+			textEmail.setText(student.getEmailAdresa());
+			textBrIndexa.setText(student.getBrojIndeksa());
+			textGodUpisa.setText(student.getGodinaUpisa());
+			textTrenutnaGod.setSelectedIndex(student.getTrenutnaGodStudija() - 1);
+			if(student.getStatus().equals("B"))
+				textFinans.setSelectedItem("Budget");
+			else
+				textFinans.setSelectedItem("Self-financing");
+				
+			JPanel info = new JPanel();
+			info.setLayout(new BorderLayout());
+			info.add(glavni,BorderLayout.NORTH);
+			info.add(dugmad, BorderLayout.SOUTH);
+			
+			JPanel polozeni = new JPanel();
+			JPanel nepolozeni = new JPanel();
+
+				
+			JTabbedPane tabs = new JTabbedPane();
+			tabs.addTab("Informations", info);
+			tabs.addTab("Passed", polozeni);
+			tabs.addTab("Unpassed", nepolozeni);
+			add(tabs);
+			
+		}
+		
 		odustani.addActionListener(new ActionListener() {
 			
 			@Override
@@ -216,6 +260,27 @@ public class AddOrEditStudent extends JPanel {
 					Student student = new Student(prezime, ime, datRodj, adresa, konTel, email, index, godUpisa, trenutnaGod, finans, prosek);
 					if(!controller.dodajStudenta(student))
 						JOptionPane.showMessageDialog(new JFrame(), "Unsuccessful adding of a student, the student with that ID already exists!", "Error" ,JOptionPane.ERROR_MESSAGE);
+				}
+				
+				if(mode == AddOrEditDialog.editMode) {
+					student.setIme(ime);
+					student.setPrezime(prezime);
+					student.setDatumRodjenja(datRodj);
+					student.setAdresaStanovanja(adresa);
+					student.setKontaktTelefon(konTel);
+					student.setEmailAdresa(email);
+					student.setGodinaUpisa(godUpisa);
+					student.setTrenutnaGodStudija(trenutnaGod);
+					student.setStatus(finans);
+					
+					if(!index.equals(student.getBrojIndeksa()))
+						if(controller.nadjiStudenta(index) != null)
+							err = new ErrorDialog("Failed to add student, there is a student with the same index number!");
+						else
+							student.setBrojIndeksa(index);
+					else
+						student.setBrojIndeksa(index);
+					
 				}
 				
 				TabelaStudenti.tabelaStudenti.updateTable();
