@@ -22,10 +22,12 @@ public class DataBase implements Serializable{
 	
 	private ArrayList<Student> listaStudenti;
 	private ArrayList<Profesor> listaProfesori;
+	private ArrayList<Predmet> listaPredmeti;
 	
 	public DataBase() {
 		listaStudenti = new ArrayList<Student>();
 		listaProfesori = new ArrayList<Profesor>();
+		listaPredmeti = new ArrayList<Predmet>();
 	}
 	
 	public DataBase getInst() {
@@ -38,6 +40,9 @@ public class DataBase implements Serializable{
 	public ArrayList<Profesor> getProf(){
 		return listaProfesori;
 	}
+	public ArrayList<Predmet> getPred(){
+		return listaPredmeti;
+	}
 	
 	public void serialize() throws IOException{
 		File f = new File("BazaPodataka" + File.separator + "BazaPodataka.txt");
@@ -49,6 +54,7 @@ public class DataBase implements Serializable{
 			
 			listaStudenti = GlavniProzor.getControllerStudent().getListaStudenata();
 			listaProfesori = GlavniProzor.getControllerProfesor().getListaProfesora();
+			listaPredmeti = GlavniProzor.getControllerPredmet().getListaPredmeta();
 			
 			o.writeObject(getInst());
 			
@@ -70,6 +76,7 @@ public class DataBase implements Serializable{
             
             GlavniProzor.getControllerStudent().setListaStudenti(temp.getStud());
             GlavniProzor.getControllerProfesor().setListaProfesori(temp.getProf());
+            GlavniProzor.getControllerPredmet().setListaPredmeti(temp.getPred());
 
             ois.close();
             fis.close();

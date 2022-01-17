@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controller.Checker;
 import controller.ControllerStudent;
 import controller.StudentFocusListeners;
 import enumeracije.StatusStudenta;
@@ -32,6 +33,9 @@ public class AddOrEditStudent extends JPanel {
 	public static AddOrEditStudent inst;
 
 	private ControllerStudent controller;
+	private static int brTacnihPolja = 0;
+	static JTextField textIme, textPrezime, textDatRodj, textAdrStan, textBrTel, textEmail, textBrIndexa, textGodUpisa;
+	public static JButton potvrdi;
 	
 	public AddOrEditStudent(int mode, AddOrEditDialog dialog) {
 		
@@ -43,42 +47,42 @@ public class AddOrEditStudent extends JPanel {
 		glavni.setLayout(new BoxLayout(glavni, BoxLayout.Y_AXIS));
 		
 		JLabel labelaIme = new JLabel("Name* ");
-		JTextField textIme = new JTextField();
+		textIme = new JTextField();
 		textIme.setName("Name* ");
 		textIme.setToolTipText("Only letters are allowed");
 		
 		JLabel labelaPrezime = new JLabel("Surname* ");
-		JTextField textPrezime = new JTextField();
+		textPrezime = new JTextField();
 		textPrezime.setName("Surname* ");
 		textPrezime.setToolTipText("Only letters are allowed");
 		
 		JLabel labelaDatRodj = new JLabel("Date of birth* ");
-		JTextField textDatRodj = new JTextField();
+		textDatRodj = new JTextField();
 		textDatRodj.setName("Date of birth* ");
 		textDatRodj.setToolTipText("dd.MM.yyyy format");
 		
 		JLabel labelaAdrStan = new JLabel("Address* ");
-		JTextField textAdrStan = new JTextField();
+		textAdrStan = new JTextField();
 		textAdrStan.setName("Address* ");
 		textAdrStan.setToolTipText("Street_name, Building_number/Flat_number, City, Country");
 		
 		JLabel labelaBrTel = new JLabel("Phone number* ");
-		JTextField textBrTel = new JTextField();
+		textBrTel = new JTextField();
 		textBrTel.setName("Phone number* ");
 		textBrTel.setToolTipText("NNN/NNN-NNN");
 		
 		JLabel labelaEmail = new JLabel("E-mail* ");
-		JTextField textEmail = new JTextField();
+		textEmail = new JTextField();
 		textEmail.setName("E-mail* ");
 		textEmail.setToolTipText("Standard e-mail format");
 		
 		JLabel labelaBrIndexa = new JLabel("Student ID* ");
-		JTextField textBrIndexa = new JTextField();
+		textBrIndexa = new JTextField();
 		textBrIndexa.setName("Student ID* ");
 		textBrIndexa.setToolTipText("XX-YYY/ZZZZ -> XX-course, YYY-number (at least 1 digit), ZZZ-year of enrollment");
 		
 		JLabel labelaGodUpisa = new JLabel("Enrollment year* ");
-		JTextField textGodUpisa = new JTextField();
+		textGodUpisa = new JTextField();
 		textGodUpisa.setName("Enrollment year* ");
 		textGodUpisa.setToolTipText("yyyy format");
 		
@@ -114,10 +118,12 @@ public class AddOrEditStudent extends JPanel {
 		textBrIndexa.addFocusListener(new StudentFocusListeners());
 		textGodUpisa.addFocusListener(new StudentFocusListeners());
 		
+		
 		JPanel dugmad = new JPanel();
 		
-		JButton potvrdi = new JButton("Confirm");
+		potvrdi = new JButton("Confirm");
 		dugmad.add(potvrdi);
+		potvrdi.setEnabled(brTacnihPolja());
 		
 		JButton odustani = new JButton("Cancel");
 		dugmad.add(odustani);
@@ -132,6 +138,7 @@ public class AddOrEditStudent extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dialog.setVisible(false);
+				brTacnihPolja = 0;
 			}
 		});
 		
@@ -217,6 +224,31 @@ public class AddOrEditStudent extends JPanel {
 		});
 	}
 	
+	public static boolean brTacnihPolja() {
+		if(Checker.isNameOrSurename(textIme.getText()))
+			brTacnihPolja++;
+		if(Checker.isNameOrSurename(textPrezime.getText()))
+			brTacnihPolja++;
+		if(Checker.isValidDate(textDatRodj.getText()))
+			brTacnihPolja++;
+		if(Checker.isValidAdrress(textAdrStan.getText()))
+			brTacnihPolja++;
+		if(Checker.isValidNumber(textBrTel.getText()))
+			brTacnihPolja++;
+		if(Checker.isValidEmail(textEmail.getText()))
+			brTacnihPolja++;
+		if(Checker.isValidIndex(textBrIndexa.getText()))
+			brTacnihPolja++;
+		if(Checker.isValidYear(textGodUpisa.getText()))
+			brTacnihPolja++;
+		if(brTacnihPolja == 8) {
+			brTacnihPolja = 0;
+			return true;
+		}
+		brTacnihPolja = 0;
+		return false;
+	}
+	
 	public JPanel createPanel(JLabel label, JTextField text) {
 		JPanel panel = new JPanel();
 		
@@ -237,7 +269,4 @@ public class AddOrEditStudent extends JPanel {
 		
 		return panel;
 	}
-	
-	
-	
 }

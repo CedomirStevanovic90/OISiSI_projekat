@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controller.Checker;
 import controller.ControllerProfesor;
 import controller.ProfesorFocusListeners;
 import model.Adresa;
@@ -33,6 +34,9 @@ public class AddOrEditProfesor extends JPanel {
 	public static AddOrEditProfesor inst;
 	
 	private ControllerProfesor controller;
+	private static int brTacnihPolja = 0;
+	static JTextField textIme, textPrezime, textDatRodj, textAdrStan, textBrTel, textEmail, textAdrKanc, textBrLicne, textGodStaza;
+	public static JButton potvrdi;
 	
 	public AddOrEditProfesor(int mode, AddOrEditDialog d) {
 		
@@ -45,42 +49,42 @@ public class AddOrEditProfesor extends JPanel {
 		glavni.setLayout(new BoxLayout(glavni, BoxLayout.Y_AXIS));
 		
 		JLabel labelaIme = new JLabel("Name* ");
-		JTextField textIme = new JTextField();
+		textIme = new JTextField();
 		textIme.setName("Name* ");
 		textIme.setToolTipText("Only letters are allowed");
 		
 		JLabel labelaPrezime = new JLabel("Surname* ");
-		JTextField textPrezime = new JTextField();
+		textPrezime = new JTextField();
 		textPrezime.setName("Surname* ");
 		textPrezime.setToolTipText("Only letters are allowed");
 		
 		JLabel labelaDatRodj = new JLabel("Date of birth* ");
-		JTextField textDatRodj = new JTextField();
+		textDatRodj = new JTextField();
 		textDatRodj.setName("Date of birth* ");
 		textDatRodj.setToolTipText("dd.MM.yyyy format");
 		
 		JLabel labelaAdrStan = new JLabel("Address* ");
-		JTextField textAdrStan = new JTextField();
+		textAdrStan = new JTextField();
 		textAdrStan.setName("Address* ");
 		textAdrStan.setToolTipText("Street_name, Building_number/Flat_number, City, Country");
 		
 		JLabel labelaBrTel = new JLabel("Phone number* ");
-		JTextField textBrTel = new JTextField();
+		textBrTel = new JTextField();
 		textBrTel.setName("Phone number* ");
 		textBrTel.setToolTipText("NNN/NNN-NNN");
 		
 		JLabel labelaEmail = new JLabel("E-mail* ");
-		JTextField textEmail = new JTextField();
+		textEmail = new JTextField();
 		textEmail.setName("E-mail* ");
 		textEmail.setToolTipText("Standard e-mail format"); 
 		
 		JLabel labelaAdrKanc = new JLabel("Office address* ");
-		JTextField textAdrKanc = new JTextField();
+		textAdrKanc = new JTextField();
 		textAdrKanc.setName("Office address* ");
 		textAdrKanc.setToolTipText("Street_name, Building_number/Flat_number, City, Country");
 		
 		JLabel labelaBrLicne = new JLabel("Professor ID* ");
-		JTextField textBrLicne = new JTextField();
+		textBrLicne = new JTextField();
 		textBrLicne.setName("Professor ID* ");
 		textBrLicne.setToolTipText("NNNNNNNNN -> 9 numbers");
 		
@@ -89,7 +93,7 @@ public class AddOrEditProfesor extends JPanel {
 		JComboBox<String> textZvanje = new JComboBox<String>(zvanje);
 		
 		JLabel labelaGodStaza = new JLabel("Years of service* ");
-		JTextField textGodStaza = new JTextField();
+		textGodStaza = new JTextField();
 		textGodStaza.setName("Years of service* ");
 		textGodStaza.setToolTipText("NN");
 		
@@ -109,9 +113,9 @@ public class AddOrEditProfesor extends JPanel {
 		
 		JPanel dugmad = new JPanel();
 		
-		JButton potvrdi = new JButton("Confirm");
-//			potvrdi.setEnabled(false);
+		potvrdi = new JButton("Confirm");
 		dugmad.add(potvrdi);
+		potvrdi.setEnabled(brTacnihPolja());
 		
 		JButton odustani = new JButton("Cancel");
 		dugmad.add(odustani);	
@@ -136,6 +140,7 @@ public class AddOrEditProfesor extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				d.setVisible(false);
+				brTacnihPolja = 0;
 			}
 		});
 		
@@ -196,7 +201,7 @@ public class AddOrEditProfesor extends JPanel {
 				if(mode == AddOrEditDialog.addMode) {
 					Profesor profesor = new Profesor(prezime, ime, datRodj, adresa, konTel, email, adresaKanc, brLicne, zvanje, godStaza, spisakPredmeta);
 					if(!controller.dodajProfesora(profesor))
-						JOptionPane.showMessageDialog(new JFrame(), "Unsuccessful adding of a student, the student with that ID already exists!", "Error" ,JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(new JFrame(), "Unsuccessful adding of a professor, the professor with that ID already exists!", "Error" ,JOptionPane.ERROR_MESSAGE);
 				}
 				
 				TabelaProfesori.tabelaProfesori.updateTable();
@@ -204,6 +209,34 @@ public class AddOrEditProfesor extends JPanel {
 			}
 		});
 	}
+	
+	public static boolean brTacnihPolja() {
+		if(Checker.isNameOrSurename(textIme.getText()))
+			brTacnihPolja++;
+		if(Checker.isNameOrSurename(textPrezime.getText()))
+			brTacnihPolja++;
+		if(Checker.isValidDate(textDatRodj.getText()))
+			brTacnihPolja++;
+		if(Checker.isValidAdrress(textAdrStan.getText()))
+			brTacnihPolja++;
+		if(Checker.isValidNumber(textBrTel.getText()))
+			brTacnihPolja++;
+		if(Checker.isValidEmail(textEmail.getText()))
+			brTacnihPolja++;
+		if(Checker.isValidAdrress(textAdrKanc.getText()))
+			brTacnihPolja++;
+		if(Checker.isValidProfessorID(textBrLicne.getText()))
+			brTacnihPolja++;
+		if(Checker.isValidYearOfServise(textGodStaza.getText()))
+			brTacnihPolja++;
+		if(brTacnihPolja == 9) {
+			brTacnihPolja = 0;
+			return true;
+		}
+		brTacnihPolja = 0;
+		return false;
+	}
+	
 	public JPanel createPanel(JLabel label, JTextField text) {
 		JPanel panel = new JPanel();
 		

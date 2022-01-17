@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -18,8 +20,9 @@ import enumeracije.Semestar;
 import model.Predmet;
 import model.Profesor;
 import model.Student;
-
-//import controller.ControllerPredmet;
+import controller.Checker;
+import controller.ControllerPredmet;
+import controller.PredmetFocusListeners;
 
 public class AddOrEditPredmet extends JPanel {
 
@@ -30,12 +33,15 @@ public class AddOrEditPredmet extends JPanel {
 
 	public static AddOrEditPredmet inst;
 	
-//	private ControllerPredmet controller;
+	private ControllerPredmet controller;
+	private static int brTacnihPolja = 0;
+	static JTextField textID, textNaziv, textESPB;
+	public static JButton potvrdi;
 	
 	public AddOrEditPredmet(int mode, AddOrEditDialog d) {
 		
 		inst = this;
-//		controller = GlavniProzor.getControllerPredmet();
+		controller = GlavniProzor.getControllerPredmet();
 		setLayout(new BorderLayout());
 		setSize(400,500);
 		
@@ -43,12 +49,12 @@ public class AddOrEditPredmet extends JPanel {
 		glavni.setLayout(new BoxLayout(glavni, BoxLayout.Y_AXIS));
 		
 		JLabel labelID = new JLabel("Subject ID* ");
-		JTextField textID = new JTextField();
+		textID = new JTextField();
 		textID.setName("Subject ID* ");
 		textID.setToolTipText("Subject ID");
 		
 		JLabel labelaNaziv = new JLabel("Name* ");
-		JTextField textNaziv = new JTextField();
+		textNaziv = new JTextField();
 		textNaziv.setName("Name* ");
 		textNaziv.setToolTipText("Only letters are allowed");
 		
@@ -57,19 +63,20 @@ public class AddOrEditPredmet extends JPanel {
 		JComboBox<String> textGodIzvodjenja = new JComboBox<String>(godIzvodjenja);
 		
 		JLabel labelaSemestar = new JLabel("Semester* ");
-		String[] semestar = {"Winter", "Summer"};
-		JComboBox<String> textSemestar = new JComboBox<String>(semestar);
+		String[] semestri = {"Winter", "Summer"};
+		JComboBox<String> textSemestar = new JComboBox<String>(semestri);
 		
 		Profesor profesor = null;
 		JLabel labelaProfesor = new JLabel("Professors* ");
 		JTextField textProfesor = new JTextField();
-		textProfesor.setName("Professors* ");
+		if(mode == AddOrEditDialog.addMode)
+			textProfesor.setText("Professors* ");
 		textProfesor.setToolTipText("+/-, add/remove");
 		JButton plus = new JButton("+");
 		JButton minus = new JButton("-");
 		
 		JLabel labelaESPB = new JLabel("ECTS* ");
-		JTextField textESPB = new JTextField();
+		textESPB = new JTextField();
 		textESPB.setName("ECTS* ");
 		textESPB.setToolTipText("Only numbers are allowed");
 		
@@ -88,8 +95,14 @@ public class AddOrEditPredmet extends JPanel {
 		
 		JPanel dugmad = new JPanel();
 		
-		JButton potvrdi = new JButton("Confirm");
+		textID.addFocusListener(new PredmetFocusListeners());
+		textNaziv.addFocusListener(new PredmetFocusListeners());
+		textESPB.addFocusListener(new PredmetFocusListeners());
+		
+		potvrdi = new JButton("Confirm");
 		dugmad.add(potvrdi);
+		potvrdi.setEnabled(brTacnihPolja());
+		
 		JButton odustani = new JButton("Cancel");
 		dugmad.add(odustani);
 		
@@ -103,6 +116,7 @@ public class AddOrEditPredmet extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				glavni.setVisible(false);
+				brTacnihPolja = 0;
 			}
 			
 		});
@@ -112,9 +126,51 @@ public class AddOrEditPredmet extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				
+				String ID = textID.getText().trim();
+				String naziv = textNaziv.getText().trim();
+				
+				GodinaIzvodjenja godina;
+				switch((String) textGodIzvodjenja.getSelectedItem()) {
+					case "1" : godina = GodinaIzvodjenja.PRVA; break;
+					case "2" : godina = GodinaIzvodjenja.DRUGA; break;
+					case "3" : godina = GodinaIzvodjenja.TRECA; break;
+					default : godina = GodinaIzvodjenja.CETVRTA;
+				}
+				
+				Semestar semestar;
+				switch((String) textSemestar.getSelectedItem()) {
+					case "Winter" : semestar = Semestar.ZIMSKI; break;
+					default : semestar = Semestar.LETNJI;
+				}
+				
+				int ESPB = Integer.parseInt(textESPB.getText().trim());
+				
+				if(mode == AddOrEditDialog.addMode) {
+					Predmet predmet = new Predmet(ID, naziv, semestar, godina, profesor, ESPB, listaPolozenih, listaNepolozenih);
+					if(!controller.dodajPredmet(predmet))
+						JOptionPane.showMessageDialog(new JFrame(), "Unsuccessful adding of a subject, the subject with that ID already exists!", "Error" ,JOptionPane.ERROR_MESSAGE);
+				}
+				
+				TabelaPredmeti.tabelaPredmeti.updateTable();
+				GlavniProzor.serialize();
 			}
 		});
+	}
+	
+	public static boolean brTacnihPolja() {
+		if(Checker.isSubjectID(textID.getText()))
+			brTacnihPolja++;
+		if(Checker.isNameOrSurename(textNaziv.getText()))
+			brTacnihPolja++;
+		if(Checker.isValidECTS(textESPB.getText()))
+			brTacnihPolja++;
+		if(brTacnihPolja == 3) {
+			brTacnihPolja = 0;
+			return true;
+		}
+		brTacnihPolja = 0;
+		return false;
 	}
 	
 	public JPanel createPanel(JLabel label, JTextField text) {

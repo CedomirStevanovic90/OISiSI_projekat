@@ -20,11 +20,12 @@ public class StatusBar extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	JLabel labela;
 
 	public StatusBar() {
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(10,23));
-		JLabel labela = new JLabel("  Studentska služba");
+		labela = new JLabel("  Studentska služba");
 		
 		DateFormat timeFormat = new SimpleDateFormat("HH:mm dd.MM.yyyy.  ");
 		
@@ -56,4 +57,19 @@ public class StatusBar extends JPanel {
 		add(timeLabela,BorderLayout.EAST);
 		setBackground(new Color(175, 175, 175));
 	}
+	
+	public void updateStatusBar(int tab) {
+		switch(tab) {
+			case 1:
+				labela.setText("  Studentska služba - Professors");
+				break;
+			case 2:
+				labela.setText("  Studentska služba - Subjects");
+				break;
+			default:
+				labela.setText("  Studentska služba - Students");
+				break;
+		}
+	}
+	
 }
