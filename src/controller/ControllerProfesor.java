@@ -31,5 +31,13 @@ public class ControllerProfesor {
 	public void setListaProfesori(ArrayList<Profesor> listaProfesora) {
 		this.listaProfesora = listaProfesora;
 	}
+
+	public Profesor nadjiProfesora(String editProfBrLic) {
+		Profesor ret = null;
+		for(Profesor s : listaProfesora)
+			if(s.getBrojLicneKarte().equals(editProfBrLic))
+				ret = s;
+		return ret;
+	}
 	
 }

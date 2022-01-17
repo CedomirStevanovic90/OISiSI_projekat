@@ -54,4 +54,11 @@ public class TabelaProfesori extends JTable{
 			tableModel.addRow(data);
 		}
 	}
+	
+	public Profesor getProfesor(int profesor) {
+        // TODO Auto-generated method stub
+        ArrayList<Profesor> listaProfesora = controller.getListaProfesora();
+
+        return listaProfesora.get(profesor);
+    }
 }

@@ -13,6 +13,7 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import controller.AddButtonListener;
+import controller.EditButtonListener;
 
 public class ToolBar extends JToolBar {
 
@@ -44,6 +45,7 @@ public class ToolBar extends JToolBar {
 		btnEdit.setToolTipText("Edit");
 		btnEdit.setMnemonic(KeyEvent.VK_T);
 		btnEdit.setIcon(new ImageIcon("images/edit_button.png"));
+		btnEdit.addActionListener(new EditButtonListener());
 		add(btnEdit);
 		
 		addSeparator();

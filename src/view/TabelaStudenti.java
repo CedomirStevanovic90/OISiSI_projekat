@@ -51,4 +51,8 @@ public class TabelaStudenti extends JTable{
 			tableModel.addRow(data);
 		}
 	}
+	
+	
+		
+	
 }

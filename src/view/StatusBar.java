@@ -46,6 +46,9 @@ public class StatusBar extends JPanel {
         timer.setInitialDelay(0);
         timer.start();
         
+        
+        
+        
 		labela.setFont(labela.getFont().deriveFont(16f));
 		timeLabela.setFont(labela.getFont().deriveFont(16f));
 		labela.setForeground(Color.BLACK);

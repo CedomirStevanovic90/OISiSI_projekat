@@ -3,6 +3,7 @@ package view;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+
 public class TabbedPane extends JTabbedPane{
 
 	/**
@@ -25,4 +26,5 @@ public class TabbedPane extends JTabbedPane{
 		this.addTab("Subjects", tabelaPredmetPane);
 		
 	}
+	
 }
