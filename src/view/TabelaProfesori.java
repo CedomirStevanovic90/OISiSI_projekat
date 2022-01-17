@@ -29,11 +29,6 @@ public class TabelaProfesori extends JTable{
 		updateTable();
 	}
 	
-	public void Table (TabelaProfesori tabelaProfesori) {
-		tableModel = new DefaultTableModel(new Object[0][], nazivKolona);
-		tableModel.setColumnIdentifiers(nazivKolona);
-		tabelaProfesori.setModel(tableModel);
-	}
 	public void initializeTable (TabelaProfesori tabelaProfesori) {
 		tableModel = new DefaultTableModel(new Object[0][], nazivKolona);
 		tableModel.setColumnIdentifiers(nazivKolona);

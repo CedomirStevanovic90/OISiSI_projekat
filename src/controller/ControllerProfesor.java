@@ -32,4 +32,12 @@ public class ControllerProfesor {
 		this.listaProfesora = listaProfesora;
 	}
 	
+	public Profesor nadjiProfesora(String brLicKarte) {
+		Profesor ret = null;
+		for(Profesor s : listaProfesora)
+			if(s.getBrojLicneKarte().equals(brLicKarte))
+				ret = s;
+		return ret;
+	}
+	
 }

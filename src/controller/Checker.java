@@ -131,5 +131,17 @@ public class Checker {
 			return true;
 		return false;
 	}
+	public static boolean isSubjectID(String str) {
+		str = str.trim();
+		if(str.matches("[a-zA-Z]+[0-9]+"))
+			return true;
+		return false;
+	}
+	public static boolean isValidECTS(String str) {
+		str = str.trim();
+		if(str.matches("[1-9]+[0-9]*"))
+			return true;
+		return false;
+	}
 	
 }

@@ -6,6 +6,8 @@ import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import controller.ControllerPredmet;
 import controller.ControllerProfesor;
@@ -21,6 +23,7 @@ public class GlavniProzor extends JFrame {
 	
 	static TabbedPane tabbedPane;
 	static GlavniProzor glavniProzor;
+	static StatusBar statusBar;
 	static ControllerStudent controllerStudent = new ControllerStudent();
 	static ControllerProfesor controllerProfesor = new ControllerProfesor();
 	static ControllerPredmet controllerPredmet = new ControllerPredmet();
@@ -56,10 +59,19 @@ public class GlavniProzor extends JFrame {
 		toolbar.setPreferredSize(new Dimension(d.width, 40));
 		add(toolbar, BorderLayout.NORTH);
 		
-		StatusBar statusBar = new StatusBar();
+		statusBar = new StatusBar();
 		add(statusBar, BorderLayout.SOUTH);
 		
 		tabbedPane = new TabbedPane();
+		statusBar.updateStatusBar(tabbedPane.getSelectedIndex());
+		tabbedPane.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				statusBar.updateStatusBar(tabbedPane.getSelectedIndex());
+			}
+		});
 		add(tabbedPane, BorderLayout.CENTER);
 		
 	}

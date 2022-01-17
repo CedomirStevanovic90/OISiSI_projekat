@@ -7,6 +7,8 @@ import java.awt.event.FocusListener;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
+import view.AddOrEditStudent;
+
 public class StudentFocusListeners implements FocusListener {
 
 	@Override
@@ -32,6 +34,8 @@ public class StudentFocusListeners implements FocusListener {
 		} else {
 			txt.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 		}
+		
+		AddOrEditStudent.potvrdi.setEnabled(AddOrEditStudent.brTacnihPolja());
 	}
 
 	public static boolean regularInput(String name, String input) {
@@ -50,7 +54,6 @@ public class StudentFocusListeners implements FocusListener {
 			return Checker.isValidIndex(input);
 		if(name.equals("Enrollment year* "))
 			return Checker.isValidYear(input);
-		
 		return false;
 	}
 }
