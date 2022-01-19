@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -160,13 +161,52 @@ public class AddOrEditStudent extends JPanel {
 			textTrenutnaGod.setSelectedIndex(student.getTrenutnaGodStudija() - 1);
 			textFinans.setSelectedItem(student.getStatus());
 		
-				
 			JPanel info = new JPanel();
 			info.setLayout(new BorderLayout());
 			info.add(glavni,BorderLayout.NORTH);
 			info.add(dugmad, BorderLayout.SOUTH);
 			
+//---------------------------------------------------------------------------------------------------------
+			
 			JPanel polozeni = new JPanel();
+			polozeni.setLayout(new BoxLayout(polozeni, BoxLayout.Y_AXIS));
+			JPanel btnPanel = new JPanel(new FlowLayout(10, 15, 10));
+			JButton ponistiOcenu = new JButton("Ponisti ocenu");
+			btnPanel.add(ponistiOcenu);
+			polozeni.add(btnPanel);
+			
+			TabelaOcena polozeneOcene = new TabelaOcena(textBrIndexa.getText());
+			JScrollPane scroll = new JScrollPane(polozeneOcene);
+			scroll.setMaximumSize(new Dimension(350, 350));
+			TabelaOcena.tabelaOcena.updateTable(textBrIndexa.getText());
+			JPanel tabelaPanel = new JPanel();
+			tabelaPanel.setLayout(new BoxLayout(tabelaPanel, BoxLayout.X_AXIS));
+			JPanel sep1 = new JPanel();
+			sep1.setPreferredSize(new Dimension(15,0));
+
+			JPanel sep2 = new JPanel();
+			sep2.setPreferredSize(new Dimension(15,0));
+			
+			tabelaPanel.add(sep1);
+			tabelaPanel.add(scroll);
+			tabelaPanel.add(sep2);
+
+			polozeni.add(tabelaPanel);
+			
+			JPanel labPanel = new JPanel();
+			labPanel.setLayout(new BoxLayout(labPanel, BoxLayout.Y_AXIS));
+			
+			double zaokruzenProsek = Math.round(student.getProsecnaOcena() * 100.0) / 100.0;
+			JLabel prosek = new JLabel("Prosecna ocena: " + zaokruzenProsek);
+			JLabel ukupnoEspb = new JLabel("Ukupno ESPB: " + controller.ukupnoEspb(student.getBrojIndeksa()));
+			labPanel.add(prosek);
+			labPanel.add(ukupnoEspb);
+			
+			JPanel donjiPanel = new JPanel(new FlowLayout(10, 200, 10));
+			donjiPanel.add(labPanel);
+			polozeni.add(donjiPanel);
+			
+//---------------------------------------------------------------------------------------------------------
 			JPanel nepolozeni = new JPanel();
 			nepolozeni.setLayout(new BoxLayout(nepolozeni, BoxLayout.Y_AXIS));
 			
@@ -227,7 +267,6 @@ public class AddOrEditStudent extends JPanel {
 			nepolozeni.add(centralni);
 			
 
-				
 			JTabbedPane tabs = new JTabbedPane();
 			tabs.addTab("Informations", info);
 			tabs.addTab("Passed", polozeni);
