@@ -23,6 +23,7 @@ import javax.swing.SwingConstants;
 
 import controller.Checker;
 import controller.ControllerStudent;
+import controller.DodajPredmetButtonListener;
 import controller.StudentFocusListeners;
 import enumeracije.StatusStudenta;
 import model.Adresa;
@@ -36,7 +37,7 @@ public class AddOrEditStudent extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	public static AddOrEditStudent inst;
-	private Student student;
+	public static Student student;
 
 	private ControllerStudent controller;
 	private static int brTacnihPolja = 0;
@@ -212,6 +213,7 @@ public class AddOrEditStudent extends JPanel {
 			nepolozeni.setLayout(new BoxLayout(nepolozeni, BoxLayout.Y_AXIS));
 			
 			JButton dodajPredmet = new JButton("Add");
+			dodajPredmet.addActionListener(new DodajPredmetButtonListener());
 			JButton obrisiPredmet = new JButton("Delete");
 			JButton polaganjePredmeta = new JButton("Add grade");
 			

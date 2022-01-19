@@ -62,10 +62,10 @@ public class TabelaPredmeti extends JTable{
 		}
 	}
 	
-	private void updateTable(String brIndeksa) {
+	public void updateTable(String brIndeksa) {
 		ArrayList<Predmet> listaPredmeta = controllerST.nadjiStudenta(brIndeksa).getNepolozeniIspiti();
 
-        initializeTable(tabelaPredmeti);
+        initializeTable(nepolozeni);
 
         for(Predmet p : listaPredmeta) {
         	Object[] data = { "", "", "", "", ""};

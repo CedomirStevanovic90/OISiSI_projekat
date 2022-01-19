@@ -3,7 +3,9 @@ package controller;
 import java.util.ArrayList;
 
 import model.Ocena;
+import model.Predmet;
 import model.Student;
+import view.GlavniProzor;
 
 public class ControllerStudent {
 	
@@ -60,5 +62,39 @@ public class ControllerStudent {
 			espb += o.getPredmet().getEspbPoeni();
 		}
 		return espb;
+	}
+
+	public boolean proveriPred(Student student, Predmet p) {
+        for(Predmet pred : student.getNepolozeniIspiti())
+            if(pred.equals(p))
+                return true;
+        
+        switch(p.getGodinaIzvodjenja()) {
+	        case PRVA: 
+	        	break;
+	        case DRUGA: 
+	        	if(student.getTrenutnaGodStudija() < 2) 
+	        		return true; 
+	        	break;
+	        case TRECA: 
+	        	if(student.getTrenutnaGodStudija() < 3) 
+					return true; 
+				break;
+			default: 
+				if(student.getTrenutnaGodStudija() < 4) 
+					return true; 
+				break;
+        }
+		return false;
+	}
+
+	public void dodajNepolozenePredmete(ArrayList<String> selectedPredmeti, Student student) {
+        for(String s : selectedPredmeti) {
+        	Predmet p = GlavniProzor.getControllerPredmet().nadjiPredmet(s);
+        	if(p != null) {
+        		student.getNepolozeniIspiti().add(p);
+        		p.getListaNepolozenih().add(student);
+        	}
+        }
 	}
 }
