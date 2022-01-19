@@ -207,15 +207,13 @@ public class AddOrEditStudent extends JPanel {
 			polozeni.add(donjiPanel);
 			
 //---------------------------------------------------------------------------------------------------------
+			
 			JPanel nepolozeni = new JPanel();
 			nepolozeni.setLayout(new BoxLayout(nepolozeni, BoxLayout.Y_AXIS));
 			
 			JButton dodajPredmet = new JButton("Add");
-			//dodajPredmet.addActionListener(new MyDodajPredListener());
 			JButton obrisiPredmet = new JButton("Delete");
-			//obrisiPredmet.addActionListener(new MyObrisiPredListener());
 			JButton polaganjePredmeta = new JButton("Add grade");
-			//polaganjePredmeta.addActionListener(new MyPolaganjeListener());
 			
 			JPanel gornjiSep = new JPanel();
 			gornjiSep.setMaximumSize(new Dimension(5,5));
@@ -266,7 +264,8 @@ public class AddOrEditStudent extends JPanel {
 			
 			nepolozeni.add(centralni);
 			
-
+//---------------------------------------------------------------------------------------------------------
+			
 			JTabbedPane tabs = new JTabbedPane();
 			tabs.addTab("Informations", info);
 			tabs.addTab("Passed", polozeni);
