@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import view.AddOrEditDialog;
 import view.GlavniProzor;
+import view.TabelaPredmeti;
 import view.TabelaProfesori;
 import view.TabelaStudenti;
 
@@ -17,10 +18,11 @@ public class EditButtonListener implements ActionListener {
 		int tab = GlavniProzor.getTabbedPane().getSelectedIndex();
 		AddOrEditDialog aoed;
 		
-		int rowCheck, rowCheckStud;
-		rowCheck = TabelaProfesori.tabelaProfesori.getSelectedRow();
+		int rowCheckProf, rowCheckStud, rowCheckPred;
+		rowCheckProf = TabelaProfesori.tabelaProfesori.getSelectedRow();
 		rowCheckStud = TabelaStudenti.tabelaStudenti.getSelectedRow();
-		if(rowCheck == -1 && rowCheckStud == -1)
+		rowCheckPred = TabelaPredmeti.tabelaPredmeti.getSelectedRow();
+		if(rowCheckProf == -1 && rowCheckStud == -1 && rowCheckPred == -1)
 			return;
 		
 		switch(tab) {
@@ -28,18 +30,23 @@ public class EditButtonListener implements ActionListener {
 			//Edit za studenta
 			if(rowCheckStud != -1) {
 				aoed = new AddOrEditDialog(AddOrEditDialog.editMode);
-				aoed.pack();
 				aoed.setVisible(true);
 			}
 			break;
 		case 1:
 			//Edit za profesore
-			if(rowCheck != -1) {
+			if(rowCheckProf != -1) {
 				aoed = new AddOrEditDialog(AddOrEditDialog.editMode);
 				aoed.setVisible(true);
 			}
 			break;
-		
+		case 2:
+			//Edit za predmete
+			if(rowCheckPred != -1) {
+				aoed = new AddOrEditDialog(AddOrEditDialog.editMode);
+				aoed.setVisible(true);
+			}
+			break;
 		}
 		
 	}

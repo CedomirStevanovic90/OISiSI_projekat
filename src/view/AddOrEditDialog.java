@@ -45,6 +45,8 @@ public class AddOrEditDialog extends JDialog{
 			// za predmete
 			if(mode == addMode)
 				this.setTitle("Add subject");
+			else
+				this.setTitle("Edit subject");
 			
 			this.add(new AddOrEditPredmet(mode, this));	
 			break;

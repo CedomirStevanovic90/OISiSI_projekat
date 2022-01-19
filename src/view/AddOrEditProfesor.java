@@ -166,7 +166,6 @@ public class AddOrEditProfesor extends JPanel {
 			
 			JPanel predmeti = new JPanel();
 			
-			
 			JTabbedPane tabs = new JTabbedPane();
 			tabs.addTab("Informations", info);
 			tabs.addTab("Subjects", predmeti);

@@ -46,7 +46,7 @@ public class AddOrEditStudent extends JPanel {
 		controller = GlavniProzor.getControllerStudent();
 		setLayout(new BorderLayout());
 		if(mode == AddOrEditDialog.editMode)
-			setPreferredSize(new Dimension(400,450));
+			setPreferredSize(new Dimension(400,700));
 		
 		JPanel glavni = new JPanel();
 		glavni.setLayout(new BoxLayout(glavni, BoxLayout.Y_AXIS));
@@ -155,10 +155,8 @@ public class AddOrEditStudent extends JPanel {
 			textBrIndexa.setText(student.getBrojIndeksa());
 			textGodUpisa.setText(student.getGodinaUpisa());
 			textTrenutnaGod.setSelectedIndex(student.getTrenutnaGodStudija() - 1);
-			if(student.getStatus().equals("B"))
-				textFinans.setSelectedItem("Budget");
-			else
-				textFinans.setSelectedItem("Self-financing");
+			textFinans.setSelectedItem(student.getStatus());
+		
 				
 			JPanel info = new JPanel();
 			info.setLayout(new BorderLayout());

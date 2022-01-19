@@ -3,7 +3,6 @@ package controller;
 import java.util.ArrayList;
 
 import model.Predmet;
-import model.Profesor;
 
 public class ControllerPredmet {
 
@@ -40,6 +39,14 @@ public class ControllerPredmet {
 						listaPredmeta.remove(p);
 						break;
 					}
+	}
+
+	public Predmet nadjiPredmet(String sifraPredmeta) {
+		Predmet ret = null;
+		for(Predmet p : listaPredmeta)
+			if(p.getSifraPredmeta().equals(sifraPredmeta))
+				ret = p;
+		return ret;
 	}
 	
 }

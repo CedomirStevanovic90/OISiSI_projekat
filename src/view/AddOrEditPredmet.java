@@ -37,6 +37,8 @@ public class AddOrEditPredmet extends JPanel {
 	private static int brTacnihPolja = 0;
 	static JTextField textID, textNaziv, textESPB;
 	public static JButton potvrdi;
+	private Predmet predmet;
+	private ErrorDialog err;
 	
 	public AddOrEditPredmet(int mode, AddOrEditDialog d) {
 		
@@ -89,9 +91,9 @@ public class AddOrEditPredmet extends JPanel {
 		glavni.add(createListPanel(labelaSemestar, textSemestar));
 		glavni.add(profPanel(labelaProfesor, textProfesor, plus, minus));
 		glavni.add(createPanel(labelaESPB, textESPB));
-		JLabel lab = new JLabel();
-		lab.setPreferredSize(new Dimension(150, 25));
-		glavni.add(lab);
+		//JLabel lab = new JLabel();
+		//lab.setPreferredSize(new Dimension(150, 25));
+		//glavni.add(lab);
 		
 		JPanel dugmad = new JPanel();
 		
@@ -105,10 +107,30 @@ public class AddOrEditPredmet extends JPanel {
 		
 		JButton odustani = new JButton("Cancel");
 		dugmad.add(odustani);
-		
+
 		if(mode == AddOrEditDialog.addMode) {
 			add(glavni, BorderLayout.NORTH);
 			add(dugmad, BorderLayout.SOUTH);
+		}
+	
+		if(mode == AddOrEditDialog.editMode) {
+			int selectedPredmet = TabelaPredmeti.tabelaPredmeti.getSelectedRow();
+			if(selectedPredmet != -1) {
+				String sifraSelectedPred = (String) TabelaPredmeti.tabelaPredmeti.getValueAt(selectedPredmet, 0);
+				predmet = controller.nadjiPredmet(sifraSelectedPred);
+				
+				
+				textID.setText(predmet.getSifraPredmeta());
+				textNaziv.setText(predmet.getNazivPredmeta());
+				
+				textGodIzvodjenja.setSelectedItem(predmet.getGodinaIzvodjenja());
+				textSemestar.setSelectedItem(predmet.getSemestar());
+				
+				textESPB.setText(String.valueOf(predmet.getEspbPoeni()));
+				
+				add(glavni, BorderLayout.NORTH);
+				add(dugmad, BorderLayout.SOUTH);
+			}
 		}
 		
 		odustani.addActionListener(new ActionListener() {
@@ -126,6 +148,7 @@ public class AddOrEditPredmet extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				
 				String ID = textID.getText().trim();
 				String naziv = textNaziv.getText().trim();
@@ -146,18 +169,39 @@ public class AddOrEditPredmet extends JPanel {
 				
 				int ESPB = Integer.parseInt(textESPB.getText().trim());
 				
+				d.setVisible(false);
+				
 				if(mode == AddOrEditDialog.addMode) {
 					Predmet predmet = new Predmet(ID, naziv, semestar, godina, profesor, ESPB, listaPolozenih, listaNepolozenih);
 					if(!controller.dodajPredmet(predmet))
 						JOptionPane.showMessageDialog(new JFrame(), "Unsuccessful adding of a subject, the subject with that ID already exists!", "Error" ,JOptionPane.ERROR_MESSAGE);
 				}
 				
+				if(mode == AddOrEditDialog.editMode) {
+					
+					predmet.setNazivPredmeta(naziv);
+					predmet.setSemestar(semestar);
+					predmet.setGodinaIzvodjenja(godina);
+					predmet.setEspbPoeni(ESPB);
+					
+					if(!ID.equals(predmet.getSifraPredmeta())) {
+						if(controller.nadjiPredmet(ID) != null) {
+							err = new ErrorDialog("Failed to add subject, there is a subject with the same ID number!");
+						}
+						else {
+							predmet.setSifraPredmeta(ID);
+						}
+					}	
+					else {
+						predmet.setSifraPredmeta(ID);
+					}
+					
+				}
 				TabelaPredmeti.tabelaPredmeti.updateTable();
 				GlavniProzor.serialize();
 			}
 		});
 	}
-	
 	public static boolean brTacnihPolja() {
 		if(Checker.isSubjectID(textID.getText()))
 			brTacnihPolja++;
