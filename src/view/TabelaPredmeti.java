@@ -6,6 +6,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controller.ControllerPredmet;
+import controller.ControllerStudent;
 import model.Predmet;
 
 public class TabelaPredmeti extends JTable{
@@ -15,18 +16,28 @@ public class TabelaPredmeti extends JTable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	static ControllerPredmet controller;
+	static ControllerPredmet controllerPR;
+	static ControllerStudent controllerST;
 	
 	public static TabelaPredmeti tabelaPredmeti;
 	private static String[] nazivKolona = {"Subject ID", "Subject name", "ECTS", "Year", "Semester"};
 	static DefaultTableModel tableModel;
+	public static TabelaPredmeti nepolozeni;
 	
 	public TabelaPredmeti () {
 		tabelaPredmeti = this;
 		tabelaPredmeti.getTableHeader().setReorderingAllowed(false);
-		controller = GlavniProzor.getControllerPredmet();
+		controllerPR = GlavniProzor.getControllerPredmet();
 		initializeTable(tabelaPredmeti);
 		updateTable();
+	}
+	
+	public TabelaPredmeti(String brIndeksa) {
+		nepolozeni = this;
+		nepolozeni.getTableHeader().setReorderingAllowed(false);
+		controllerST = GlavniProzor.getControllerStudent();
+		initializeTable(nepolozeni);
+		updateTable(brIndeksa);
 	}
 	
 	public void initializeTable (TabelaPredmeti tabelaPredmeti) {
@@ -36,7 +47,7 @@ public class TabelaPredmeti extends JTable{
 	}
 	
 	public void updateTable() {
-		ArrayList<Predmet> listaPredmeta = controller.getListaPredmeta();
+		ArrayList<Predmet> listaPredmeta = controllerPR.getListaPredmeta();
 		
 		initializeTable(tabelaPredmeti);
 		
@@ -49,5 +60,21 @@ public class TabelaPredmeti extends JTable{
 			data[4] = p.getSemestar();
 			tableModel.addRow(data);
 		}
+	}
+	
+	private void updateTable(String brIndeksa) {
+		ArrayList<Predmet> listaPredmeta = controllerST.nadjiStudenta(brIndeksa).getNepolozeniIspiti();
+
+        initializeTable(tabelaPredmeti);
+
+        for(Predmet p : listaPredmeta) {
+        	Object[] data = { "", "", "", "", ""};
+			data[0] = p.getSifraPredmeta();
+			data[1] = p.getNazivPredmeta();
+			data[2] = p.getEspbPoeni();
+			data[3] = p.getGodinaIzvodjenja();
+			data[4] = p.getSemestar();
+			tableModel.addRow(data);
+        }
 	}
 }
