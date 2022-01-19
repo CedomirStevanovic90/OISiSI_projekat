@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
+import model.Ocena;
 import model.Student;
 
 public class ControllerStudent {
@@ -49,5 +50,15 @@ public class ControllerStudent {
 				listaStudenti.remove(s);
 				break;
 			}
+	}
+
+	public int ukupnoEspb(String brojIndeksa) {
+		// TODO Auto-generated method stub
+		Student student = nadjiStudenta(brojIndeksa);
+		int espb = 0;
+		for(Ocena o : student.getPolozeniIspiti()) {
+			espb += o.getPredmet().getEspbPoeni();
+		}
+		return espb;
 	}
 }
