@@ -53,6 +53,16 @@ public class ControllerStudent {
 				break;
 			}
 	}
+	
+	public void obrisiPredmet(String predIds, Student s) {
+		for(Predmet p : s.getNepolozeniIspiti()) {
+			if(p.getSifraPredmeta().equals(predIds)) {
+				s.getNepolozeniIspiti().remove(p);
+                p.getListaNepolozenih().remove(s);
+                break;
+             }
+        }
+    }
 
 	public int ukupnoEspb(String brojIndeksa) {
 		// TODO Auto-generated method stub

@@ -62,6 +62,7 @@ public class TabelaPredmeti extends JTable{
 		}
 	}
 	
+
 	public void updateTable(String brIndeksa) {
 		ArrayList<Predmet> listaPredmeta = controllerST.nadjiStudenta(brIndeksa).getNepolozeniIspiti();
 

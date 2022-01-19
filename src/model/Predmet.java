@@ -116,7 +116,20 @@ public class Predmet implements Serializable{
 	public void setListaNepolozenih(ArrayList<Student> listaNepolozenih) {
 		this.listaNepolozenih = listaNepolozenih;
 	}
+
+	public String outGodIzv(GodinaIzvodjenja g) {
+			String out = "";
+			
+			switch(g) {
+			case PRVA : out = "FIRST"; break;                                   
+			case DRUGA : out = "SECOND"; break;                                  
+			case TRECA : out = "THIRD"; break;                                  
+			case CETVRTA : out = "FOURTH"; break;                                
+			}
+			
+			return out;
+		}
+	}
 	
 	
 
-}

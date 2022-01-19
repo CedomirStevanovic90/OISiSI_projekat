@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
 import controller.Checker;
 import controller.ControllerStudent;
 import controller.DodajPredmetButtonListener;
+import controller.ObrisiPredmetButtonListener;
 import controller.StudentFocusListeners;
 import enumeracije.StatusStudenta;
 import model.Adresa;
@@ -215,6 +216,7 @@ public class AddOrEditStudent extends JPanel {
 			JButton dodajPredmet = new JButton("Add");
 			dodajPredmet.addActionListener(new DodajPredmetButtonListener());
 			JButton obrisiPredmet = new JButton("Delete");
+			obrisiPredmet.addActionListener(new ObrisiPredmetButtonListener());
 			JButton polaganjePredmeta = new JButton("Add grade");
 			
 			JPanel gornjiSep = new JPanel();
