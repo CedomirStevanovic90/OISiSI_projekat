@@ -14,8 +14,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import controller.Checker;
 import controller.ControllerStudent;
@@ -165,6 +168,64 @@ public class AddOrEditStudent extends JPanel {
 			
 			JPanel polozeni = new JPanel();
 			JPanel nepolozeni = new JPanel();
+			nepolozeni.setLayout(new BoxLayout(nepolozeni, BoxLayout.Y_AXIS));
+			
+			JButton dodajPredmet = new JButton("Add");
+			//dodajPredmet.addActionListener(new MyDodajPredListener());
+			JButton obrisiPredmet = new JButton("Delete");
+			//obrisiPredmet.addActionListener(new MyObrisiPredListener());
+			JButton polaganjePredmeta = new JButton("Add grade");
+			//polaganjePredmeta.addActionListener(new MyPolaganjeListener());
+			
+			JPanel gornjiSep = new JPanel();
+			gornjiSep.setMaximumSize(new Dimension(5,5));
+			nepolozeni.add(gornjiSep);
+			
+			JPanel buttons = new JPanel();
+			buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
+			JSeparator btnSep1 = new JSeparator(SwingConstants.VERTICAL);
+			btnSep1.setMaximumSize(new Dimension(20,0));
+			JSeparator btnSep2 = new JSeparator(SwingConstants.VERTICAL);
+			btnSep2.setMaximumSize(new Dimension(5,0));
+			JSeparator btnSep3 = new JSeparator(SwingConstants.VERTICAL);
+			btnSep3.setMaximumSize(new Dimension(5,0));
+			JSeparator btnSep4 = new JSeparator(SwingConstants.VERTICAL);
+			btnSep4.setMaximumSize(new Dimension(200,0));
+			
+			buttons.add(btnSep1);
+			buttons.add(dodajPredmet);
+			buttons.add(btnSep2);
+			buttons.add(obrisiPredmet);
+			buttons.add(btnSep3);
+			buttons.add(polaganjePredmeta);
+			buttons.add(btnSep4);
+			
+			nepolozeni.add(buttons);
+			
+			JPanel cenSep = new JPanel();
+			cenSep.setMaximumSize(new Dimension(5,5));
+			cenSep.setPreferredSize(new Dimension(5,5));
+			nepolozeni.add(cenSep);
+			
+			TabelaPredmeti nepoPredmeti = new TabelaPredmeti(textBrIndexa.getText());
+			
+			JScrollPane scrPane = new JScrollPane(nepoPredmeti);
+			scrPane.setMaximumSize(new Dimension(350, 350));
+			
+			JPanel centralni = new JPanel();
+			centralni.setLayout(new BoxLayout(centralni, BoxLayout.X_AXIS));
+			JPanel sepCen1 = new JPanel();
+			sepCen1.setPreferredSize(new Dimension(15,0));
+			
+			JPanel sepCen2 = new JPanel();
+			sepCen2.setPreferredSize(new Dimension(15,0));
+			
+			centralni.add(sepCen1);
+			centralni.add(scrPane);
+			centralni.add(sepCen2);
+			
+			nepolozeni.add(centralni);
+			
 
 				
 			JTabbedPane tabs = new JTabbedPane();

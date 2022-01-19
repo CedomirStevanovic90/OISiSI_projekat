@@ -59,7 +59,6 @@ public class ToolBar extends JToolBar {
 		btnDelete.setMnemonic(KeyEvent.VK_D);
 		btnDelete.setIcon(new ImageIcon("images/delete_button.png"));
 		btnDelete.addActionListener(new DeleteButtonListener());
-		btnDelete.addActionListener(new EditButtonListener());
 		add(btnDelete);
 		
 		add(Box.createHorizontalGlue());
