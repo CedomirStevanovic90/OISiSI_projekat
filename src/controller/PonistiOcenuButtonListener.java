@@ -15,6 +15,7 @@ import view.TabelaStudenti;
 
 public class PonistiOcenuButtonListener implements ActionListener {
 
+	@SuppressWarnings("unused")
 	private ErrorDialog err;
 	@Override
 	public void actionPerformed(ActionEvent e) {

@@ -15,8 +15,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import controller.Checker;
 import controller.ControllerProfesor;
@@ -153,6 +156,8 @@ public class AddOrEditProfesor extends JPanel {
 			textZvanje.setSelectedItem(professor.getZvanje());
 			textGodStaza.setText(String.valueOf(professor.getGodineStaza()));
 			
+			JTabbedPane tabs = new JTabbedPane();
+			
 			JPanel info = new JPanel();
 			info.setLayout(new BorderLayout());
 			info.add(glavni,BorderLayout.NORTH);
@@ -160,7 +165,35 @@ public class AddOrEditProfesor extends JPanel {
 			
 			JPanel predmeti = new JPanel();
 			
-			JTabbedPane tabs = new JTabbedPane();
+			JButton dodajPredmet = new JButton("Add subject");
+			JButton ukloniPredmet = new JButton("Delete subject");
+			
+			JPanel panelGore = new JPanel();
+			panelGore.setLayout(new BoxLayout(panelGore, BoxLayout.X_AXIS));
+			panelGore.add(dodajPredmet);
+			JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
+			separator.setMaximumSize(new Dimension(5,0));
+			panelGore.add(separator);
+			panelGore.add(ukloniPredmet);
+			
+			JPanel panel = new JPanel();
+			panel.setLayout(new BorderLayout());
+			panel.add(panelGore, BorderLayout.NORTH);
+			
+			TabelaPredmeti tabelaPredmetaProfesor = new TabelaPredmeti(textBrLicne.getText(), 2);
+			TabelaPredmeti.tabelaPredmeti.updateTable(textBrLicne.getText(), 2);
+			
+			JScrollPane listPane = new JScrollPane(tabelaPredmetaProfesor);
+			listPane.setPreferredSize(new Dimension(350,370));
+			panel.add(listPane,BorderLayout.SOUTH);
+			
+			JPanel seph = new JPanel();
+			seph.setMaximumSize(new Dimension(350,5));
+			panel.add(seph,BorderLayout.CENTER);
+			
+			predmeti.add(panel);
+			tabs.add("Subjects", predmeti);
+			
 			tabs.addTab("Informations", info);
 			tabs.addTab("Subjects", predmeti);
 			add(tabs);
