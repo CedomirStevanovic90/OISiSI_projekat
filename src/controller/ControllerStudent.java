@@ -122,7 +122,7 @@ public class ControllerStudent {
 		prosecnaOcena(student);
 	}
 
-	private void prosecnaOcena(Student student) {
+	public void prosecnaOcena(Student student) {
 		double prosecnaOcena = 0;
 		int brojPredmeta = 0;
 		for(Ocena ocena : student.getPolozeniIspiti()) {
@@ -135,4 +135,17 @@ public class ControllerStudent {
 		student.setProsecnaOcena(prosecnaOcena);
 		
 	}
+
+	@SuppressWarnings("unlikely-arg-type")
+	public void obrisiOcenuIzListePolozenih(String temp, Student student) {
+		for(Ocena o : student.getPolozeniIspiti()) {
+			if(o.getPredmet().getSifraPredmeta().equals(temp)) {
+				student.getPolozeniIspiti().remove(o);
+				GlavniProzor.getControllerPredmet().nadjiPredmet(temp).getListaPolozenih().remove(student.getBrojIndeksa());
+				break;
+			}
+		}
+		
+	}
+
 }

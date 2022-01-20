@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import model.Student;
 import view.AddOrEditStudent;
 import view.ErrorDialog;
 import view.GlavniProzor;
@@ -32,6 +31,7 @@ public class ObrisiPredmetButtonListener implements ActionListener {
 		if(code == JOptionPane.YES_OPTION) {	
 			GlavniProzor.getControllerStudent().obrisiPredmet(temp, AddOrEditStudent.student);
 			TabelaPredmeti.nepolozeni.updateTable(AddOrEditStudent.student.getBrojIndeksa());
+			GlavniProzor.serialize();
 		}
 		
 	}
