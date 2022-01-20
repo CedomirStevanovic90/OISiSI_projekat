@@ -74,13 +74,13 @@ public class ControllerStudent {
 		return espb;
 	}
 
-	public boolean proveriPred(Student student, Predmet p) {
+	public boolean proveriPredmet(Student student, Predmet p) {
 		for(Ocena o : student.getPolozeniIspiti())
             if(o.getPredmet().equals(p))
                 return true;
 		
-        for(Predmet pred : student.getNepolozeniIspiti())
-            if(pred.equals(p))
+        for(Predmet predmet : student.getNepolozeniIspiti())
+            if(predmet.equals(p))
                 return true;
         
         switch(p.getGodinaIzvodjenja()) {

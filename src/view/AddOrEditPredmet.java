@@ -131,7 +131,7 @@ public class AddOrEditPredmet extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				glavni.setVisible(false);
+				d.setVisible(false);
 				brTacnihPolja = 0;
 			}
 			

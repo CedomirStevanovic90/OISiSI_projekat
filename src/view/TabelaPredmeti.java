@@ -21,12 +21,12 @@ public class TabelaPredmeti extends JTable{
 	static ControllerStudent controllerST;
 	static ControllerProfesor controllerP;
 	
-	public static TabelaPredmeti tabelaPredmeti;
+	public static TabelaPredmeti tabelaPredmeti; //glavni prikaz predmeta
 	private static String[] nazivKolona = {"Subject ID", "Subject name", "ECTS", "Year", "Semester"};
 	private static String[] nazivKolonaProfesor = {"Subject ID", "Subject name", "Year", "Semester"};
 	static DefaultTableModel tableModel;
-	public static TabelaPredmeti nepolozeni;
-	public static TabelaPredmeti profesori;
+	public static TabelaPredmeti nepolozeni; //prikaz nepolozenih predmeta studenta
+	public static TabelaPredmeti profesori; //prikaz predmeta koje profesor predaje
 	
 	public TabelaPredmeti () {
 		tabelaPredmeti = this;
@@ -56,10 +56,10 @@ public class TabelaPredmeti extends JTable{
 	public void updateTable(String brLicne, int i) {
 		ArrayList<Predmet> listaPredmeta = controllerP.nadjiProfesora(brLicne).getSpisakPredmeta();
 		
-		initializeTable(tabelaPredmeti, i);
+		initializeTable(profesori, i);
 		
 		for(Predmet p : listaPredmeta) {
-			Object[] data = { "", "", "", "", ""};
+			Object[] data = { "", "", "", ""};
 			data[0] = p.getSifraPredmeta();
 			data[1] = p.getNazivPredmeta();
 			data[2] = p.getGodinaIzvodjenja();
@@ -69,10 +69,10 @@ public class TabelaPredmeti extends JTable{
 		
 	}
 
-	private void initializeTable(TabelaPredmeti tabelaPredmeti, int i) {
+	private void initializeTable(TabelaPredmeti tabela, int i) {
 		tableModel = new DefaultTableModel(new Object[0][], nazivKolonaProfesor);
 		tableModel.setColumnIdentifiers(nazivKolonaProfesor);
-		tabelaPredmeti.setModel(tableModel);
+		tabela.setModel(tableModel);
 	}
 
 	public void initializeTable (TabelaPredmeti tabelaPredmeti) {

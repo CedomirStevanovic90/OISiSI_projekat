@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 
 import model.Predmet;
+import model.Profesor;
+import view.GlavniProzor;
 
 public class ControllerPredmet {
 
@@ -65,5 +67,18 @@ public class ControllerPredmet {
 		
 		return searchSifraPredmeta;
 	}
+
+	public boolean proveriPredmet(Profesor profesor, Predmet predmet) {
+		if(predmet.getProfesor() != null)
+			return true;
+		return false;
+	}
 	
+	public void dodajPredmeteProfesoru(ArrayList<String> selectedPredmeti, Profesor profesor) {
+		for(String s : selectedPredmeti) {
+        	Predmet p = GlavniProzor.getControllerPredmet().nadjiPredmet(s);
+        	p.setProfesor(profesor);
+        	profesor.getSpisakPredmeta().add(p);
+        }
+	}
 }

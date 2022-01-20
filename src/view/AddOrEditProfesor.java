@@ -23,6 +23,7 @@ import javax.swing.SwingConstants;
 
 import controller.Checker;
 import controller.ControllerProfesor;
+import controller.DodajPredmetProfesoruButtonLIstener;
 import controller.ProfesorFocusListeners;
 import model.Adresa;
 import model.Predmet;
@@ -36,7 +37,7 @@ public class AddOrEditProfesor extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public static AddOrEditProfesor inst;
-	private Profesor professor;
+	public static Profesor professor;
 	private ControllerProfesor controller;
 	private static int brTacnihPolja = 0;
 	static JTextField textIme, textPrezime, textDatRodj, textAdrStan, textBrTel, textEmail, textAdrKanc, textBrLicne, textGodStaza;
@@ -165,26 +166,28 @@ public class AddOrEditProfesor extends JPanel {
 			
 			JPanel predmeti = new JPanel();
 			
-			JButton dodajPredmet = new JButton("Add subject");
-			JButton ukloniPredmet = new JButton("Delete subject");
-			
 			JPanel panelGore = new JPanel();
+			
 			panelGore.setLayout(new BoxLayout(panelGore, BoxLayout.X_AXIS));
+			JButton dodajPredmet = new JButton("Dodaj predmet");
+			dodajPredmet.addActionListener(new DodajPredmetProfesoruButtonLIstener());
 			panelGore.add(dodajPredmet);
 			JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
 			separator.setMaximumSize(new Dimension(5,0));
 			panelGore.add(separator);
+			JButton ukloniPredmet = new JButton("Ukloni predmet");
 			panelGore.add(ukloniPredmet);
 			
 			JPanel panel = new JPanel();
+			
 			panel.setLayout(new BorderLayout());
 			panel.add(panelGore, BorderLayout.NORTH);
 			
 			TabelaPredmeti tabelaPredmetaProfesor = new TabelaPredmeti(textBrLicne.getText(), 2);
-			TabelaPredmeti.tabelaPredmeti.updateTable(textBrLicne.getText(), 2);
+			TabelaPredmeti.profesori.updateTable(textBrLicne.getText(), 2);
 			
 			JScrollPane listPane = new JScrollPane(tabelaPredmetaProfesor);
-			listPane.setPreferredSize(new Dimension(350,370));
+			listPane.setPreferredSize(new Dimension(350, 330));
 			panel.add(listPane,BorderLayout.SOUTH);
 			
 			JPanel seph = new JPanel();

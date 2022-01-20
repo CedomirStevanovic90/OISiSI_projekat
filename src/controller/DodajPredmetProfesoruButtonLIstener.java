@@ -14,71 +14,67 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import model.Predmet;
-import model.Student;
-import view.AddOrEditStudent;
+import model.Profesor;
+import view.AddOrEditProfesor;
 import view.GlavniProzor;
 import view.TabelaPredmeti;
 
-public class DodajPredmetButtonListener implements ActionListener {
+public class DodajPredmetProfesoruButtonLIstener implements ActionListener {
 
-	DefaultListModel<String> defaultListModel;
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dodajPredStudentu(AddOrEditStudent.student); 
+		addPredToProfDialog(AddOrEditProfesor.professor);
 	}
-	
-	public void dodajPredStudentu(Student student){
-		JDialog dodajPredStudentu = new JDialog();
-		dodajPredStudentu.setSize(300, 300);
-		dodajPredStudentu.setModal(true);
-		dodajPredStudentu.setResizable(false);
-		dodajPredStudentu.setLocationRelativeTo(AddOrEditStudent.inst);
-		dodajPredStudentu.setTitle("Dodaj predmete");
-		
-		dodajPredStudentu.setLayout(new BorderLayout());
+
+	private void addPredToProfDialog(Profesor profesor) {
+		JDialog addPredToProfDialog = new JDialog();
+		addPredToProfDialog.setResizable(false);
+		addPredToProfDialog.setSize(300, 300);
+		addPredToProfDialog.setModal(true);
+		addPredToProfDialog.setLocationRelativeTo(AddOrEditProfesor.inst);
+		addPredToProfDialog.setTitle("Dodavanje predmeta profesoru");
 		
 		JPanel gore = new JPanel();
 		gore.setPreferredSize(new Dimension(5, 5));
-		dodajPredStudentu.add(gore, BorderLayout.NORTH);
+		addPredToProfDialog.add(gore, BorderLayout.NORTH);
 		
 		JPanel dole = new JPanel();
 		JButton dodaj = new JButton("Dodaj");
 		JButton odustani = new JButton("Odustani");
 		dole.add(dodaj);
 		dole.add(odustani);
-		dodajPredStudentu.add(dole,BorderLayout.SOUTH);
+		addPredToProfDialog.add(dole,BorderLayout.SOUTH);
 		
 		JPanel levo = new JPanel();
 		levo.setPreferredSize(new Dimension(5, 5));
-		dodajPredStudentu.add(levo, BorderLayout.WEST);
+		addPredToProfDialog.add(levo, BorderLayout.WEST);
 		
 		JPanel desno = new JPanel();
 		desno.setPreferredSize(new Dimension(5, 5));
-		dodajPredStudentu.add(desno, BorderLayout.EAST);
+		addPredToProfDialog.add(desno, BorderLayout.EAST);
 		
 		JList<String> listaPredmeta = new JList<String>();
-		defaultListModel = new DefaultListModel<String>();
+		DefaultListModel<String> defaultListModel = new DefaultListModel<String>();
 		for(Predmet predmet : GlavniProzor.getControllerPredmet().getListaPredmeta()) {
-			if(!GlavniProzor.getControllerStudent().proveriPredmet(student, predmet)) {
+			if(!GlavniProzor.getControllerPredmet().proveriPredmet(profesor, predmet)) {
 				String row = predmet.getSifraPredmeta() + " - " + predmet.getNazivPredmeta();
 				defaultListModel.addElement(row);
 			}
 		}
-		
 		listaPredmeta.setModel(defaultListModel);
+		
 		
 		JPanel panel = new JPanel();
 		JScrollPane jScrollPane = new JScrollPane(listaPredmeta);
 		jScrollPane.setPreferredSize(new Dimension(270, 200));
 		panel.add(jScrollPane);
-		dodajPredStudentu.add(panel, BorderLayout.CENTER);
+		addPredToProfDialog.add(panel, BorderLayout.CENTER);
 		
 		odustani.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dodajPredStudentu.setVisible(false);
+				addPredToProfDialog.setVisible(false);
 			}
 		});
 		dodaj.addActionListener(new ActionListener() {
@@ -93,14 +89,16 @@ public class DodajPredmetButtonListener implements ActionListener {
 					selectedPredmeti.add(predmeti[0]);
 				}
 				
-				GlavniProzor.getControllerStudent().dodajNepolozenePredmete(selectedPredmeti, student);
+				GlavniProzor.getControllerPredmet().dodajPredmeteProfesoru(selectedPredmeti, profesor);
 				
-				TabelaPredmeti.nepolozeni.updateTable(student.getBrojIndeksa());
+				TabelaPredmeti.profesori.updateTable(profesor.getBrojLicneKarte(), 2);
 				
 				GlavniProzor.serialize();
-				dodajPredStudentu.setVisible(false);
+				addPredToProfDialog.setVisible(false);
 			}
 		});
-		dodajPredStudentu.setVisible(true);
+		
+		addPredToProfDialog.setVisible(true);
 	}
+
 }
