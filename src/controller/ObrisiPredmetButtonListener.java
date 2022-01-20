@@ -33,6 +33,7 @@ public class ObrisiPredmetButtonListener implements ActionListener {
 		if(code == JOptionPane.YES_OPTION) {	
 			GlavniProzor.getControllerStudent().obrisiPredmet(temp, AddOrEditStudent.student);
 			TabelaPredmeti.nepolozeni.updateTable(AddOrEditStudent.student.getBrojIndeksa());
+			GlavniProzor.serialize();
 		}
 		
 	}

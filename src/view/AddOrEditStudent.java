@@ -26,6 +26,7 @@ import controller.ControllerStudent;
 import controller.DodajPredmetButtonListener;
 import controller.ObrisiPredmetButtonListener;
 import controller.PolaganjePredmetaButtonListener;
+import controller.PonistiOcenuButtonListener;
 import controller.StudentFocusListeners;
 import enumeracije.StatusStudenta;
 import model.Adresa;
@@ -169,6 +170,7 @@ public class AddOrEditStudent extends JPanel {
 			polozeni.setLayout(new BoxLayout(polozeni, BoxLayout.Y_AXIS));
 			JPanel btnPanel = new JPanel(new FlowLayout(10, 15, 10));
 			JButton ponistiOcenu = new JButton("Ponisti ocenu");
+			ponistiOcenu.addActionListener(new PonistiOcenuButtonListener());
 			btnPanel.add(ponistiOcenu);
 			polozeni.add(btnPanel);
 			
