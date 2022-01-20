@@ -66,5 +66,4 @@ public class ControllerProfesor {
 		
 		return searchBrojLicneKarte;
 	}
-	
 }
