@@ -52,6 +52,27 @@ public class TabelaStudenti extends JTable{
 		}
 	}
 	
+	public void updateTable(ArrayList<String> nadjeniStudenti) {
+		ArrayList<Student> listaStudenata = controller.getListaStudenata();
+		
+		initializeTable(tabelaStudenti);
+		
+		for(Student s : listaStudenata) {
+			for(String s1 : nadjeniStudenti) {
+				if(s.getBrojIndeksa().equals(s1)) {
+					Object[] data = { "", "", "", "", "", ""};
+					data[0] = s.getBrojIndeksa();
+					data[1] = s.getIme();
+					data[2] = s.getPrezime();
+					data[3] = Integer.toString(s.getTrenutnaGodStudija());
+					data[4] = s.getStatus();
+					data[5] = Math.round(s.getProsecnaOcena() * 100.0) / 100.0;
+					tableModel.addRow(data);
+				}
+			}
+		}
+	}
+	
 	
 		
 	

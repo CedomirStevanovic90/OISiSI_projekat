@@ -15,6 +15,7 @@ import javax.swing.SwingConstants;
 import controller.AddButtonListener;
 import controller.DeleteButtonListener;
 import controller.EditButtonListener;
+import controller.SearchButtonListener;
 
 public class ToolBar extends JToolBar {
 
@@ -22,6 +23,7 @@ public class ToolBar extends JToolBar {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static JTextField searchField;
 	
 	public ToolBar(){
 		
@@ -64,7 +66,7 @@ public class ToolBar extends JToolBar {
 		add(Box.createHorizontalGlue());
 		addSeparator();
 		
-		JTextField searchField = new JTextField(30);
+		searchField = new JTextField(30);
 		searchField.setMaximumSize(new Dimension(350, 30));
 		searchField.setMinimumSize(new Dimension(350, 30));
 		searchField.setToolTipText("Search field");
@@ -79,6 +81,7 @@ public class ToolBar extends JToolBar {
 		btnSearch.setToolTipText("Search");
 		btnSearch.setMnemonic(KeyEvent.VK_S);
 		btnSearch.setIcon(new ImageIcon("images/search_button1.png"));
+		btnSearch.addActionListener(new SearchButtonListener());
 		add(btnSearch);
 		
 		setFloatable(false);

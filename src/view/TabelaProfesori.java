@@ -51,9 +51,27 @@ public class TabelaProfesori extends JTable{
 	}
 
 	public Profesor getProfesor(int profesor) {
-		// TODO Auto-generated method stub
 		ArrayList<Profesor> listaProfesora = controller.getListaProfesora();
 		
 		return listaProfesora.get(profesor);
+	}
+
+	public void updateTable(ArrayList<String> nadjeniProfesori) {
+		ArrayList<Profesor> listaProfesora = controller.getListaProfesora();
+		
+		initializeTable(tabelaProfesori);
+		
+		for(Profesor p : listaProfesora) {
+			for(String p1 : nadjeniProfesori) {
+				if(p.getBrojLicneKarte().equals(p1)) {
+					Object[] data = { "", "", "", ""};
+					data[0] = p.getIme();
+					data[1] = p.getPrezime();
+					data[2] = p.getZvanje();
+					data[3] = p.getEmailAdresa();
+					tableModel.addRow(data);
+				}
+			}
+		}
 	}
 }

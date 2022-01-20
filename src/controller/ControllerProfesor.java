@@ -49,5 +49,22 @@ public class ControllerProfesor {
 				break;
 			}
 	}
+
+	public ArrayList<String> pretraziProfesore(String[] searchText) {
+		ArrayList<String> searchBrojLicneKarte = new ArrayList<String>();
+		if(searchText.length == 1) {
+			for(Profesor profesor : listaProfesora) {
+				if(profesor.getPrezime().toLowerCase().indexOf(searchText[0].trim()) != -1)
+					searchBrojLicneKarte.add(profesor.getBrojLicneKarte());
+			}
+		}else if(searchText.length == 2) {
+			for(Profesor profesor : listaProfesora)
+				if(profesor.getPrezime().toLowerCase().indexOf(searchText[0].trim()) != -1)
+					if(profesor.getIme().toLowerCase().indexOf(searchText[1].trim()) != -1)
+						searchBrojLicneKarte.add(profesor.getBrojLicneKarte());
+		}
+		
+		return searchBrojLicneKarte;
+	}
 	
 }

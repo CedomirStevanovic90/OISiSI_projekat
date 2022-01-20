@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import model.Student;
 import view.AddOrEditStudent;
 import view.ErrorDialog;
 import view.GlavniProzor;
@@ -13,12 +12,14 @@ import view.TabelaPredmeti;
 
 public class ObrisiPredmetButtonListener implements ActionListener {
 
-	private ErrorDialog err;
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int selectedIndex = TabelaPredmeti.nepolozeni.getSelectedRow();
 		
 		if(selectedIndex == -1) {
+			@SuppressWarnings("unused")
+			ErrorDialog err;
 			err = new ErrorDialog("You haven't chosen any subject");
 			return;
 		}

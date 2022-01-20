@@ -135,4 +135,27 @@ public class ControllerStudent {
 		student.setProsecnaOcena(prosecnaOcena);
 		
 	}
+
+	public ArrayList<String> pretraziStudente(String[] searchText) {
+		ArrayList<String> searchBrojIndexa = new ArrayList<String>();
+		if(searchText.length == 1) {
+			for(Student student : listaStudenti) {
+				if(student.getPrezime().toLowerCase().indexOf(searchText[0].trim()) != -1)
+					searchBrojIndexa.add(student.getBrojIndeksa());
+			}
+		}else if(searchText.length == 2) {
+			for(Student student : listaStudenti)
+				if(student.getPrezime().toLowerCase().indexOf(searchText[0].trim()) != -1)
+					if(student.getIme().toLowerCase().indexOf(searchText[1].trim()) != -1)
+						searchBrojIndexa.add(student.getBrojIndeksa());
+		}else if(searchText.length == 3) {
+			for(Student student : listaStudenti)
+				if(student.getBrojIndeksa().toLowerCase().indexOf(searchText[0].trim()) != -1)
+					if(student.getIme().toLowerCase().indexOf(searchText[1].trim()) != -1)
+						if(student.getPrezime().toLowerCase().indexOf(searchText[2].trim()) != -1)
+							searchBrojIndexa.add(student.getBrojIndeksa());
+		}
+		
+		return searchBrojIndexa;
+	}
 }
