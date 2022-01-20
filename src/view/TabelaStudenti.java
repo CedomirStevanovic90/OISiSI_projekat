@@ -24,6 +24,7 @@ public class TabelaStudenti extends JTable{
 	public TabelaStudenti () {
 		tabelaStudenti = this;
 		tabelaStudenti.getTableHeader().setReorderingAllowed(false);
+		tabelaStudenti.setAutoCreateRowSorter(true);
 		controller = GlavniProzor.getControllerStudent();
 		initializeTable(tabelaStudenti);
 		updateTable();

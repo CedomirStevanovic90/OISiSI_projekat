@@ -27,6 +27,7 @@ public class TabelaPredmeti extends JTable{
 	public TabelaPredmeti () {
 		tabelaPredmeti = this;
 		tabelaPredmeti.getTableHeader().setReorderingAllowed(false);
+		tabelaPredmeti.setAutoCreateRowSorter(true);
 		controllerPR = GlavniProzor.getControllerPredmet();
 		initializeTable(tabelaPredmeti);
 		updateTable();
