@@ -34,8 +34,10 @@ public class StudentFocusListeners implements FocusListener {
 		} else {
 			txt.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 		}
-		
-		AddOrEditStudent.potvrdi.setEnabled(AddOrEditStudent.brTacnihPolja());
+		if(AddOrEditStudent.potvrdi != null)
+			AddOrEditStudent.potvrdi.setEnabled(AddOrEditStudent.brTacnihPolja());
+		if(PolaganjePredmetaButtonListener.potvrdi != null)
+			PolaganjePredmetaButtonListener.potvrdi.setEnabled(PolaganjePredmetaButtonListener.brTacnihPolja());
 	}
 
 	public static boolean regularInput(String name, String input) {

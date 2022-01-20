@@ -65,6 +65,10 @@ public class ControllerStudent {
 	}
 
 	public boolean proveriPred(Student student, Predmet p) {
+		for(Ocena o : student.getPolozeniIspiti())
+            if(o.getPredmet().equals(p))
+                return true;
+		
         for(Predmet pred : student.getNepolozeniIspiti())
             if(pred.equals(p))
                 return true;
@@ -96,5 +100,29 @@ public class ControllerStudent {
         		p.getListaNepolozenih().add(student);
         	}
         }
+	}
+
+	public void upisiOcenuStudentu(Student student, Ocena ocena) {
+		Predmet predmet = ocena.getPredmet();
+		student.getNepolozeniIspiti().remove(predmet);
+		ocena.getPredmet().getListaNepolozenih().remove(student);
+		student.getPolozeniIspiti().add(ocena);
+		ocena.getPredmet().getListaPolozenih().add(student);
+		
+		prosecnaOcena(student);
+	}
+
+	private void prosecnaOcena(Student student) {
+		double prosecnaOcena = 0;
+		int brojPredmeta = 0;
+		for(Ocena ocena : student.getPolozeniIspiti()) {
+			brojPredmeta++;
+			prosecnaOcena += ocena.getBrVrednost();
+		}
+		if(brojPredmeta != 0)
+			prosecnaOcena = prosecnaOcena/brojPredmeta;
+		
+		student.setProsecnaOcena(prosecnaOcena);
+		
 	}
 }

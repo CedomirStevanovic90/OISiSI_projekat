@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
 import controller.Checker;
 import controller.ControllerStudent;
 import controller.DodajPredmetButtonListener;
+import controller.PolaganjePredmetaButtonListener;
 import controller.StudentFocusListeners;
 import enumeracije.StatusStudenta;
 import model.Adresa;
@@ -43,15 +44,13 @@ public class AddOrEditStudent extends JPanel {
 	private static int brTacnihPolja = 0;
 	static JTextField textIme, textPrezime, textDatRodj, textAdrStan, textBrTel, textEmail, textBrIndexa, textGodUpisa;
 	public static JButton potvrdi;
-	private ErrorDialog err;
+	JLabel prosek, ukupnoEspb;
 	
 	public AddOrEditStudent(int mode, AddOrEditDialog dialog) {
 		
 		inst = this;
 		controller = GlavniProzor.getControllerStudent();
 		setLayout(new BorderLayout());
-		if(mode == AddOrEditDialog.editMode)
-			setPreferredSize(new Dimension(400,700));
 		
 		JPanel glavni = new JPanel();
 		glavni.setLayout(new BoxLayout(glavni, BoxLayout.Y_AXIS));
@@ -104,7 +103,6 @@ public class AddOrEditStudent extends JPanel {
 		String[] data = {"Budget", "Self-financing"};
 		JComboBox<String> textFinans = new JComboBox<String>(data);
 		
-		
 		glavni.add(createPanel(labelaIme, textIme));
 		glavni.add(createPanel(labelaPrezime, textPrezime));
 		glavni.add(createPanel(labelaDatRodj, textDatRodj));
@@ -115,9 +113,6 @@ public class AddOrEditStudent extends JPanel {
 		glavni.add(createPanel(labelaGodUpisa, textGodUpisa));
 		glavni.add(createListPanel(labelaTrenutnaGod, textTrenutnaGod));
 		glavni.add(createListPanel(labelaFinans, textFinans));
-		JLabel lab = new JLabel();
-		lab.setPreferredSize(new Dimension(150, 25));
-		glavni.add(lab);
 		
 		textIme.addFocusListener(new StudentFocusListeners());
 		textPrezime.addFocusListener(new StudentFocusListeners());
@@ -197,9 +192,8 @@ public class AddOrEditStudent extends JPanel {
 			JPanel labPanel = new JPanel();
 			labPanel.setLayout(new BoxLayout(labPanel, BoxLayout.Y_AXIS));
 			
-			double zaokruzenProsek = Math.round(student.getProsecnaOcena() * 100.0) / 100.0;
-			JLabel prosek = new JLabel("Prosecna ocena: " + zaokruzenProsek);
-			JLabel ukupnoEspb = new JLabel("Ukupno ESPB: " + controller.ukupnoEspb(student.getBrojIndeksa()));
+			prosek = new JLabel("Prosecna ocena: " + Math.round(student.getProsecnaOcena() * 100.0) / 100.0);
+			ukupnoEspb = new JLabel("Ukupno ESPB: " + controller.ukupnoEspb(student.getBrojIndeksa()));
 			labPanel.add(prosek);
 			labPanel.add(ukupnoEspb);
 			
@@ -216,6 +210,7 @@ public class AddOrEditStudent extends JPanel {
 			dodajPredmet.addActionListener(new DodajPredmetButtonListener());
 			JButton obrisiPredmet = new JButton("Delete");
 			JButton polaganjePredmeta = new JButton("Add grade");
+			polaganjePredmeta.addActionListener(new PolaganjePredmetaButtonListener());
 			
 			JPanel gornjiSep = new JPanel();
 			gornjiSep.setMaximumSize(new Dimension(5,5));
@@ -373,9 +368,11 @@ public class AddOrEditStudent extends JPanel {
 					student.setStatus(finans);
 					
 					if(!index.equals(student.getBrojIndeksa()))
-						if(controller.nadjiStudenta(index) != null)
-							err = new ErrorDialog("Failed to add student, there is a student with the same index number!");
-						else
+						if(controller.nadjiStudenta(index) != null) {
+							@SuppressWarnings("unused")
+							ErrorDialog error;
+							error = new ErrorDialog("Failed to add student, there is a student with the same index number!");
+						}else
 							student.setBrojIndeksa(index);
 					else
 						student.setBrojIndeksa(index);
@@ -411,6 +408,11 @@ public class AddOrEditStudent extends JPanel {
 		}
 		brTacnihPolja = 0;
 		return false;
+	}
+	
+	public void updateEspbAndProsek(Student student) {
+		prosek.setText("Prosecna ocena: " + Math.round(student.getProsecnaOcena() * 100.0) / 100.0);
+		ukupnoEspb.setText("Ukupno ESPB: " + controller.ukupnoEspb(student.getBrojIndeksa()));
 	}
 	
 	public JPanel createPanel(JLabel label, JTextField text) {
