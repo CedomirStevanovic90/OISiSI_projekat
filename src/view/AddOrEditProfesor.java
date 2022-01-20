@@ -39,14 +39,11 @@ public class AddOrEditProfesor extends JPanel {
 	static JTextField textIme, textPrezime, textDatRodj, textAdrStan, textBrTel, textEmail, textAdrKanc, textBrLicne, textGodStaza;
 	public static JButton potvrdi;
 	
-	private ErrorDialog err;
-	
 	public AddOrEditProfesor(int mode, AddOrEditDialog d) {
 		
 		inst = this;
 		controller = GlavniProzor.getControllerProfesor();
 		setLayout(new BorderLayout());
-		setSize(400,500);
 		
 		JPanel glavni = new JPanel();
 		glavni.setLayout(new BoxLayout(glavni, BoxLayout.Y_AXIS));
@@ -110,9 +107,6 @@ public class AddOrEditProfesor extends JPanel {
 		glavni.add(createPanel(labelaBrLicne, textBrLicne));
 		glavni.add(createListPanel(labelaZvanje, textZvanje));
 		glavni.add(createPanel(labelaGodStaza, textGodStaza));
-		JLabel lab = new JLabel();
-		lab.setPreferredSize(new Dimension(150, 25));
-		glavni.add(lab);
 		
 		JPanel dugmad = new JPanel();
 		
@@ -255,12 +249,13 @@ public class AddOrEditProfesor extends JPanel {
 					
 					if(!brLicne.equals(professor.getBrojLicneKarte())) {
 						if(controller.nadjiProfesora(brLicne) != null) {
-							err = new ErrorDialog("Failed to add professor, there is a professor with the same ID number!");
+							@SuppressWarnings("unused")
+							ErrorDialog error;
+							error = new ErrorDialog("Failed to add professor, there is a professor with the same ID number!");
 						}
 						else
 							professor.setBrojLicneKarte(brLicne);
-						}
-					else
+					}else
 						professor.setBrojLicneKarte(brLicne);
 					
 					}

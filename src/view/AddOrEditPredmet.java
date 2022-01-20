@@ -38,14 +38,12 @@ public class AddOrEditPredmet extends JPanel {
 	static JTextField textID, textNaziv, textESPB;
 	public static JButton potvrdi;
 	private Predmet predmet;
-	private ErrorDialog err;
 	
 	public AddOrEditPredmet(int mode, AddOrEditDialog d) {
 		
 		inst = this;
 		controller = GlavniProzor.getControllerPredmet();
 		setLayout(new BorderLayout());
-		setSize(400,500);
 		
 		JPanel glavni = new JPanel();
 		glavni.setLayout(new BoxLayout(glavni, BoxLayout.Y_AXIS));
@@ -91,9 +89,6 @@ public class AddOrEditPredmet extends JPanel {
 		glavni.add(createListPanel(labelaSemestar, textSemestar));
 		glavni.add(profPanel(labelaProfesor, textProfesor, plus, minus));
 		glavni.add(createPanel(labelaESPB, textESPB));
-		//JLabel lab = new JLabel();
-		//lab.setPreferredSize(new Dimension(150, 25));
-		//glavni.add(lab);
 		
 		JPanel dugmad = new JPanel();
 		
@@ -118,7 +113,6 @@ public class AddOrEditPredmet extends JPanel {
 			if(selectedPredmet != -1) {
 				String sifraSelectedPred = (String) TabelaPredmeti.tabelaPredmeti.getValueAt(selectedPredmet, 0);
 				predmet = controller.nadjiPredmet(sifraSelectedPred);
-				
 				
 				textID.setText(predmet.getSifraPredmeta());
 				textNaziv.setText(predmet.getNazivPredmeta());
@@ -186,6 +180,8 @@ public class AddOrEditPredmet extends JPanel {
 					
 					if(!ID.equals(predmet.getSifraPredmeta())) {
 						if(controller.nadjiPredmet(ID) != null) {
+							@SuppressWarnings("unused")
+							ErrorDialog err;
 							err = new ErrorDialog("Failed to add subject, there is a subject with the same ID number!");
 						}
 						else {

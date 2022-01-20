@@ -97,8 +97,8 @@ public class DodajPredmetButtonListener implements ActionListener {
 				GlavniProzor.getControllerStudent().dodajNepolozenePredmete(selectedPredmeti, student);
 				
 				TabelaPredmeti.nepolozeni.updateTable(student.getBrojIndeksa());
-				GlavniProzor.serialize();
 				
+				GlavniProzor.serialize();
 				dodajPredStudentu.setVisible(false);
 			}
 		});
