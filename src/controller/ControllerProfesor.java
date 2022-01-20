@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
+import model.Predmet;
 import model.Profesor;
 
 
@@ -65,5 +66,15 @@ public class ControllerProfesor {
 		}
 		
 		return searchBrojLicneKarte;
+	}
+
+	public void ukloniPredmetKodProfesora(Profesor profesor, ArrayList<String> izabraniPredmeti) {
+		for(String predmet : izabraniPredmeti)
+			for(Predmet pred : profesor.getSpisakPredmeta())
+				if(pred.getSifraPredmeta().equals(predmet)) {
+					profesor.getSpisakPredmeta().remove(pred);
+					pred.setProfesor(null);
+					break;
+				}
 	}
 }

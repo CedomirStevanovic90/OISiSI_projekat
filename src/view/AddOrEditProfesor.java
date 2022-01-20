@@ -25,6 +25,7 @@ import controller.Checker;
 import controller.ControllerProfesor;
 import controller.DodajPredmetProfesoruButtonLIstener;
 import controller.ProfesorFocusListeners;
+import controller.UkloniPredmetProfesoruButtonListener;
 import model.Adresa;
 import model.Predmet;
 import model.Profesor;
@@ -38,7 +39,8 @@ public class AddOrEditProfesor extends JPanel {
 
 	public static AddOrEditProfesor inst;
 	public static Profesor professor;
-	private ControllerProfesor controller;
+	public static int selectedProfessor;
+	public static ControllerProfesor controller;
 	private static int brTacnihPolja = 0;
 	static JTextField textIme, textPrezime, textDatRodj, textAdrStan, textBrTel, textEmail, textAdrKanc, textBrLicne, textGodStaza;
 	public static JButton potvrdi;
@@ -139,7 +141,7 @@ public class AddOrEditProfesor extends JPanel {
 		
 		if(mode == AddOrEditDialog.editMode) {
 			
-			int selectedProfessor = TabelaProfesori.tabelaProfesori.getSelectedRow();
+			selectedProfessor = TabelaProfesori.tabelaProfesori.getSelectedRow();
 			
 			String editProfBrLic = (String)TabelaProfesori.tabelaProfesori.getProfesor(selectedProfessor).getBrojLicneKarte(); 
 			
@@ -176,6 +178,7 @@ public class AddOrEditProfesor extends JPanel {
 			separator.setMaximumSize(new Dimension(5,0));
 			panelGore.add(separator);
 			JButton ukloniPredmet = new JButton("Ukloni predmet");
+			ukloniPredmet.addActionListener(new UkloniPredmetProfesoruButtonListener());
 			panelGore.add(ukloniPredmet);
 			
 			JPanel panel = new JPanel();
