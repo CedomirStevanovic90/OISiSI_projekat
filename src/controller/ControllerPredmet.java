@@ -48,5 +48,22 @@ public class ControllerPredmet {
 				ret = p;
 		return ret;
 	}
+
+	public ArrayList<String> pretraziPredmete(String[] searchText) {
+		ArrayList<String> searchSifraPredmeta = new ArrayList<String>();
+		if(searchText.length == 1) {
+			for(Predmet predmet : listaPredmeta) {
+				if(predmet.getSifraPredmeta().toLowerCase().indexOf(searchText[0].trim()) != -1)
+					searchSifraPredmeta.add(predmet.getSifraPredmeta());
+			}
+		}else if(searchText.length == 2) {
+			for(Predmet predmet : listaPredmeta)
+				if(predmet.getNazivPredmeta().toLowerCase().indexOf(searchText[0].trim()) != -1)
+					if(predmet.getSifraPredmeta().toLowerCase().indexOf(searchText[1].trim()) != -1)
+						searchSifraPredmeta.add(predmet.getSifraPredmeta());
+		}
+		
+		return searchSifraPredmeta;
+	}
 	
 }

@@ -31,6 +31,7 @@ public class TabelaPredmeti extends JTable{
 	public TabelaPredmeti () {
 		tabelaPredmeti = this;
 		tabelaPredmeti.getTableHeader().setReorderingAllowed(false);
+		tabelaPredmeti.setAutoCreateRowSorter(true);
 		controllerPR = GlavniProzor.getControllerPredmet();
 		initializeTable(tabelaPredmeti);
 		updateTable();
@@ -111,5 +112,25 @@ public class TabelaPredmeti extends JTable{
 			data[4] = p.getSemestar();
 			tableModel.addRow(data);
         }
+	}
+
+	public void updateTable(ArrayList<String> nadjeniPredmeti) {
+		ArrayList<Predmet> listaPredmeta = controllerPR.getListaPredmeta();
+		
+		initializeTable(tabelaPredmeti);
+		
+		for(Predmet p : listaPredmeta) {
+			for(String p1 : nadjeniPredmeti) {
+				if(p.getSifraPredmeta().equals(p1)) {
+					Object[] data = { "", "", "", "", ""};
+					data[0] = p.getSifraPredmeta();
+					data[1] = p.getNazivPredmeta();
+					data[2] = p.getEspbPoeni();
+					data[3] = p.getGodinaIzvodjenja();
+					data[4] = p.getSemestar();
+					tableModel.addRow(data);
+				}
+			}
+		}
 	}
 }

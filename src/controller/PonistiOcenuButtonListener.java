@@ -15,13 +15,17 @@ import view.TabelaStudenti;
 
 public class PonistiOcenuButtonListener implements ActionListener {
 
+
 	@SuppressWarnings("unused")
 	private ErrorDialog err;
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int selectedIndex = TabelaOcena.tabelaOcena.getSelectedRow();
 		
 		if(selectedIndex == -1) {
+			@SuppressWarnings("unused")
+			ErrorDialog err;
 			err = new ErrorDialog("You haven't chosen any grade");
 			return;
 		}
