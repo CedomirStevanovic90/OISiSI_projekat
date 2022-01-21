@@ -56,7 +56,7 @@ public class DodajPredmetProfesoruButtonLIstener implements ActionListener {
 		JList<String> listaPredmeta = new JList<String>();
 		DefaultListModel<String> defaultListModel = new DefaultListModel<String>();
 		for(Predmet predmet : GlavniProzor.getControllerPredmet().getListaPredmeta()) {
-			if(!GlavniProzor.getControllerPredmet().proveriPredmet(profesor, predmet)) {
+			if(!GlavniProzor.getControllerPredmet().proveriPredmet(predmet)) {
 				String row = predmet.getSifraPredmeta() + " - " + predmet.getNazivPredmeta();
 				defaultListModel.addElement(row);
 			}

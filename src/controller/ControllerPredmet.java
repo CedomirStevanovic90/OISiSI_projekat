@@ -68,7 +68,7 @@ public class ControllerPredmet {
 		return searchSifraPredmeta;
 	}
 
-	public boolean proveriPredmet(Profesor profesor, Predmet predmet) {
+	public boolean proveriPredmet(Predmet predmet) {
 		if(predmet.getProfesor() != null)
 			return true;
 		return false;
