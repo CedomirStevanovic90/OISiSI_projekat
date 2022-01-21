@@ -157,7 +157,11 @@ public class AddOrEditStudent extends JPanel {
 			textBrIndexa.setText(student.getBrojIndeksa());
 			textGodUpisa.setText(student.getGodinaUpisa());
 			textTrenutnaGod.setSelectedIndex(student.getTrenutnaGodStudija() - 1);
-			textFinans.setSelectedItem(student.getStatus());
+			if(student.getStatus().equals(StatusStudenta.B)) {
+				textFinans.setSelectedIndex(0);
+			}else {
+				textFinans.setSelectedIndex(1);
+			}
 		
 			JPanel info = new JPanel();
 			info.setLayout(new BorderLayout());

@@ -136,7 +136,14 @@ public class AddOrEditPredmet extends JPanel {
 					plus.setEnabled(false);
 				}
 				
-				textGodIzvodjenja.setSelectedItem(predmet.getGodinaIzvodjenja());
+				if(predmet.getGodinaIzvodjenja() == GodinaIzvodjenja.PRVA)
+					textGodIzvodjenja.setSelectedIndex(0);
+				else if(predmet.getGodinaIzvodjenja() == GodinaIzvodjenja.DRUGA)
+					textGodIzvodjenja.setSelectedIndex(1);
+				else if(predmet.getGodinaIzvodjenja() == GodinaIzvodjenja.TRECA)
+					textGodIzvodjenja.setSelectedIndex(2);
+				else
+					textGodIzvodjenja.setSelectedIndex(3);
 				textSemestar.setSelectedItem(predmet.getSemestar());
 				
 				textESPB.setText(String.valueOf(predmet.getEspbPoeni()));

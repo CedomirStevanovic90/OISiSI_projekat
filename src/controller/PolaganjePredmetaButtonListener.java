@@ -75,7 +75,7 @@ public class PolaganjePredmetaButtonListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				polaganjePredmeta.setVisible(false);
 			}
 			
 		});
@@ -130,10 +130,9 @@ public class PolaganjePredmetaButtonListener implements ActionListener {
 				GlavniProzor.getControllerStudent().upisiOcenuStudentu(trenutniStudent, ocena);
 
 				TabelaPredmeti.nepolozeni.updateTable(trenutniStudent.getBrojIndeksa());
-				TabelaStudenti.tabelaStudenti.updateTable();
 				TabelaOcena.tabelaOcena.updateTable(trenutniStudent.getBrojIndeksa());
-				
 				AddOrEditStudent.inst.updateEspbAndProsek(trenutniStudent);
+				TabelaStudenti.tabelaStudenti.updateTable();
 				
 				polaganjePredmeta.setVisible(false);
 				GlavniProzor.serialize();

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import view.AddOrEditProfesor;
+import view.ErrorDialog;
 import view.GlavniProzor;
 import view.TabelaPredmeti;
 
@@ -16,6 +17,13 @@ public class UkloniPredmetProfesoruButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		int[] indeksiPredmeta = TabelaPredmeti.profesori.getSelectedRows();
+		
+		if(indeksiPredmeta.length == 0) {
+			@SuppressWarnings("unused")
+			ErrorDialog error;
+			error = new ErrorDialog("Greska pri izboru predmeta!");
+			return;
+		}
 		
 		ArrayList<String> izabraniPredmeti = new ArrayList<String>();
 		String temp;
