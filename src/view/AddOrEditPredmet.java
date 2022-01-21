@@ -24,6 +24,7 @@ import controller.Checker;
 import controller.ControllerPredmet;
 import controller.DodajProfesoraPredmetuButtonLIstener;
 import controller.PredmetFocusListeners;
+import controller.UkloniProfesoraSaPredmetaButtonLIstener;
 
 public class AddOrEditPredmet extends JPanel {
 
@@ -146,6 +147,8 @@ public class AddOrEditPredmet extends JPanel {
 		}
 		
 		plus.addActionListener(new DodajProfesoraPredmetuButtonLIstener());
+		
+		minus.addActionListener(new UkloniProfesoraSaPredmetaButtonLIstener());
 		
 		odustani.addActionListener(new ActionListener() {
 			

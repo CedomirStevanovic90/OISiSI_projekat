@@ -4,6 +4,8 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -69,10 +71,60 @@ public class ToolBar extends JToolBar {
 		searchField = new JTextField(30);
 		searchField.setMaximumSize(new Dimension(350, 30));
 		searchField.setMinimumSize(new Dimension(350, 30));
-		searchField.setToolTipText("Search field");
-		add(searchField);	
-		
-		
+		searchField.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				int tab = GlavniProzor.getTabbedPane().getSelectedIndex();
+				switch(tab) {
+				case 0:
+					ToolBar.searchField.setToolTipText("<html>" + "Formati Pretrage :"
+														+ "<br>" + "1. Prezime"
+														+ "<br>" + "2. Prezime, Ime"
+														+ "<br>" + "3. Index, Ime, Prezime" 
+														+"</html>");
+					break;
+				case 1:
+					ToolBar.searchField.setToolTipText("<html>" + "Formati Pretrage :"
+							   							+ "<br>" + "1. Prezime"
+							   							+ "<br>" + "2. Prezime, Ime"
+							   							+"</html>");
+					break;
+				case 2:
+					ToolBar.searchField.setToolTipText("<html>" + "Formati Pretrage :"
+														+ "<br>" + "1. Naziv"
+														+ "<br>" + "2. Sifra, Naziv"
+														+"</html>");
+					break;
+				}
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		add(searchField);
 		
 		JButton btnSearch = new JButton();
 		btnSearch.setPreferredSize(new Dimension(30, 30));
@@ -86,10 +138,5 @@ public class ToolBar extends JToolBar {
 		
 		setFloatable(false);
 		setBackground(new Color(175, 175, 175));
-		
 	}
-	
-	
-	
-
 }
