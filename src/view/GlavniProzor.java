@@ -3,9 +3,13 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -41,6 +45,7 @@ public class GlavniProzor extends JFrame {
 		setTitle("Studentska služba");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		addWindowListener(new GlavniProzorListener());
 		ImageIcon image = new ImageIcon("images/university.png");
 		setIconImage(image.getImage());
 		
@@ -96,6 +101,57 @@ public class GlavniProzor extends JFrame {
 	}
 	public static ControllerPredmet getControllerPredmet() {
 		return controllerPredmet;
+	}
+	
+	public class GlavniProzorListener implements WindowListener{
+
+
+		@Override
+		public void windowClosing(WindowEvent e) {
+		
+			JFrame mainFrame = (JFrame) e.getComponent();
+			String [] options = {"Yes", "No"};
+			int code = JOptionPane.showOptionDialog(mainFrame, "Do you want to close the application?", "Application closing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+			
+			if(code == JOptionPane.YES_OPTION) {
+				serialize();
+				mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+			} else
+				mainFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		}
+		
+		@Override
+		public void windowActivated(WindowEvent e) {}
+
+		@Override
+		public void windowOpened(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void windowClosed(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void windowIconified(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void windowDeiconified(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void windowDeactivated(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 	
 	public static void serialize() {

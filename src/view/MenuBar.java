@@ -116,6 +116,16 @@ public class MenuBar extends JMenuBar {
 		JMenuItem miAbout = new JMenuItem("About", new ImageIcon("images/about_button.png"));
 		miAbout.setMnemonic(KeyEvent.VK_A);
 		miAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
+		miAbout.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {	
+				AboutDialog about = new AboutDialog();
+				about.pack();
+				about.setLocationRelativeTo(null);
+				about.setVisible(true);
+			}
+		});
 		
 		helpMenu.add(miHelp);
 		helpMenu.addSeparator();
