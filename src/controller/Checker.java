@@ -42,7 +42,71 @@ public class Checker {
 				suc = false;
 		
 		if(suc)
-			if(date.getYear() > (LocalDateTime.now().getYear() - 16))
+			if(date.getYear() > (LocalDateTime.now().getYear() - 19))
+				suc = false;
+		
+		if(suc) {
+			switch(parts[1]) {
+				case "1" :
+				case "3" :
+				case "5" :
+				case "7" :
+				case "8" :
+				case "10" :
+				case "12" : {
+					if(Integer.parseInt(parts[0]) <= 0 || Integer.parseInt(parts[0]) >= 32)
+						suc = false;
+					break;
+				}
+				case "4" :
+				case "6" :
+				case "9" :
+				case "11" :{
+					if(Integer.parseInt(parts[0]) <= 0 || Integer.parseInt(parts[0]) >= 31)
+						suc = false;
+					break;
+				}
+				case "2" :{
+					if(date.getYear() % 4 == 0) {
+						if(Integer.parseInt(parts[0]) <= 0 || Integer.parseInt(parts[0]) >= 29)
+							suc = false;
+					}else {
+						if(Integer.parseInt(parts[0]) <= 0 || Integer.parseInt(parts[0]) >= 28)
+							suc = false;
+					}
+					break;
+				}	
+			}
+		}
+		
+		return suc;
+	}
+	public static boolean isValidDateExams(String str) {
+		boolean suc = false;		
+		str = str.trim();
+		DateTimeFormatter dataTimeFormatter;
+		LocalDate date = null;
+		String[] parts = str.split("\\.");
+		
+		for(int i = 0; i < regExDatePoss.length; i++) {
+			try {
+				dataTimeFormatter = DateTimeFormatter.ofPattern(regExDatePoss[i]);
+				date = LocalDate.parse(str, dataTimeFormatter);
+				suc = true;
+				break;
+			}catch(Exception e) {
+				suc = false;
+			}
+			if(suc)
+				break;
+		}
+		
+		if(suc)
+			if(date.getYear() < 1920)
+				suc = false;
+		
+		if(suc)
+			if(date.getYear() > LocalDateTime.now().getYear())
 				suc = false;
 		
 		if(suc) {
@@ -125,7 +189,7 @@ public class Checker {
 	}
 	public static boolean isValidYearOfServise(String str) {
 		str = str.trim();
-		if(!str.matches("[0-9]{1}[0-9]{1}"))
+		if(!str.matches("[1-9]+[0-9]*"))
 			return false;
 		if(Integer.parseInt(str) >=  0 && Integer.parseInt(str) <=  65)
 			return true;

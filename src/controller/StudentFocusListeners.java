@@ -56,6 +56,8 @@ public class StudentFocusListeners implements FocusListener {
 			return Checker.isValidIndex(input);
 		if(name.equals("Enrollment year* "))
 			return Checker.isValidYear(input);
+		if(name.equals("Exam* "))
+			return Checker.isValidDateExams(input);
 		return false;
 	}
 }

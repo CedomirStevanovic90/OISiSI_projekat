@@ -97,7 +97,7 @@ public class PolaganjePredmetaButtonListener implements ActionListener {
 		JComboBox<String> comboStringOcena = new JComboBox<String>(ocene);
 		JLabel datumPolaganja = new JLabel();
 		textDatumPolaganja = new JTextField();
-		textDatumPolaganja.setName("Date of birth* ");
+		textDatumPolaganja.setName("Exam* ");
 		textDatumPolaganja.addFocusListener(new StudentFocusListeners());
 		
 		potvrdi.addActionListener(new ActionListener() {
@@ -189,7 +189,7 @@ public class PolaganjePredmetaButtonListener implements ActionListener {
 		return ret;
 	}
 	public static boolean brTacnihPolja() {
-		if(Checker.isValidDate(textDatumPolaganja.getText()))
+		if(Checker.isValidDateExams(textDatumPolaganja.getText()))
 			brTacnihPolja++;
 		if(brTacnihPolja == 1) {
 			brTacnihPolja = 0;
