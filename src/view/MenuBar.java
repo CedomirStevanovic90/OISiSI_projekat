@@ -1,12 +1,14 @@
 package view;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import controller.AddButtonListener;
@@ -41,6 +43,18 @@ public class MenuBar extends JMenuBar {
 		JMenuItem miClose = new JMenuItem("Close", new ImageIcon("images/close_button.png"));
 		miClose.setMnemonic(KeyEvent.VK_C);
 		miClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
+		miClose.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String [] options = {"Yes", "No"};
+				int code = JOptionPane.showOptionDialog(null, "Do you want to close the application?", "Application closing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+
+		         if(code == JOptionPane.YES_OPTION){
+		        	System.exit(0);
+		         }
+			}
+		});
 		
 		JMenuItem miStudent = new JMenuItem("Students", new ImageIcon("images/student_button.png"));
 		miStudent.setMnemonic(KeyEvent.VK_S);
