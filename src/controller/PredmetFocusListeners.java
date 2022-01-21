@@ -42,8 +42,8 @@ public class PredmetFocusListeners implements FocusListener {
 		
 		if(name.equals("Subject ID* "))
 			return Checker.isSubjectID(input);
-		if(name.equals("Name* "))
-			return Checker.isNameOrSurename(input);
+		if(name.equals("Subject name* "))
+			return Checker.isValidSubjectName(input);
 		if(name.equals("ECTS* "))
 			return Checker.isValidECTS(input);
 		

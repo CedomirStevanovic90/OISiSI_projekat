@@ -149,7 +149,7 @@ public class Checker {
 		str = str.toLowerCase();
 		str = str.trim();
 		
-		if(str.matches("([\\s]?[\\p{L}]+)*[,][\\s]*[0-9]{1,4}[/][0-9]{1,3}[,]([\\s][\\p{L}]+)*[,]([\\s][\\p{L}]+)*")) { 
+		if(str.matches("([\\s]?[\\p{L}]+)*[,][\\s]*[0-9]{1,4}[a-z]?[/][0-9]{1,3}[,]([\\s][\\p{L}]+)*[,]([\\s][\\p{L}]+)*")) { 
 			//Mise Dimitrijevica Bate Ima Vise, 1234/123, Novi Sad, Republika Srpska
 			return true;}
 		return false;
@@ -163,7 +163,7 @@ public class Checker {
 	public static boolean isValidEmail(String str) {
 		str = str.trim();
 		str = str.toLowerCase();
-		if(str.matches("[a-zA-Z0-9.]*@((((\\bgmail\\b)|(\\byahoo\\b)|(\\bhotmail\\b))[.](\\bcom\\b))|((\\buns\\b)[.](\\bac\\b)[.](\\brs\\b)))")) //bag podrzava i velika slova tako i ostali resiti***
+		if(str.matches("[a-zA-Z0-9.]*@((((\\bgmail\\b)|(\\byahoo\\b)|(\\bhotmail\\b)|(\\bmailinator\\b))[.](\\bcom\\b))|((\\buns\\b)[.](\\bac\\b)[.](\\brs\\b)))")) //bag podrzava i velika slova tako i ostali resiti***
 			return true;
 		return false;
 	}
@@ -204,6 +204,15 @@ public class Checker {
 	public static boolean isValidECTS(String str) {
 		str = str.trim();
 		if(str.matches("[1-9]+[0-9]*"))
+			return true;
+		return false;
+	}
+	
+	public static boolean isValidSubjectName(String str) {
+		str = str.toLowerCase();
+		str = str.trim();
+		String regEx = "\\p{L}+[\\s]*\\p{L}*[\\s]*\\p{L}*[\\s]*\\p{L}*[\\s]*[0-9]*";
+		if(str.matches(regEx))
 			return true;
 		return false;
 	}

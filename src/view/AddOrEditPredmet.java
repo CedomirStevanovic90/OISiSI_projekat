@@ -58,9 +58,9 @@ public class AddOrEditPredmet extends JPanel {
 		textID.setName("Subject ID* ");
 		textID.setToolTipText("Subject ID");
 		
-		JLabel labelaNaziv = new JLabel("Name* ");
+		JLabel labelaNaziv = new JLabel("Subject name* ");
 		textNaziv = new JTextField();
-		textNaziv.setName("Name* ");
+		textNaziv.setName("Subject name* ");
 		textNaziv.setToolTipText("Only letters are allowed");
 		
 		JLabel labelaGodIzvodjenja = new JLabel("Year* ");
@@ -227,7 +227,7 @@ public class AddOrEditPredmet extends JPanel {
 	public static boolean brTacnihPolja() {
 		if(Checker.isSubjectID(textID.getText()))
 			brTacnihPolja++;
-		if(Checker.isNameOrSurename(textNaziv.getText()))
+		if(Checker.isValidSubjectName(textNaziv.getText()))
 			brTacnihPolja++;
 		if(Checker.isValidECTS(textESPB.getText()))
 			brTacnihPolja++;
