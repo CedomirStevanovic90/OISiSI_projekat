@@ -1,13 +1,19 @@
 package view;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+
+import controller.AddButtonListener;
+import controller.DeleteButtonListener;
+import controller.EditButtonListener;
 
 public class MenuBar extends JMenuBar {
 
@@ -24,6 +30,7 @@ public class MenuBar extends JMenuBar {
 		JMenuItem miNew = new JMenuItem("New", new ImageIcon("images/add_button.png"));
 		miNew.setMnemonic(KeyEvent.VK_N);
 		miNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		miNew.addActionListener(new AddButtonListener());
 		
 		JMenuItem miSave = new JMenuItem("Save", new ImageIcon("images/save_button.png"));
 		miSave.setMnemonic(KeyEvent.VK_S);
@@ -36,6 +43,18 @@ public class MenuBar extends JMenuBar {
 		JMenuItem miClose = new JMenuItem("Close", new ImageIcon("images/close_button.png"));
 		miClose.setMnemonic(KeyEvent.VK_C);
 		miClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
+		miClose.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String [] options = {"Yes", "No"};
+				int code = JOptionPane.showOptionDialog(null, "Do you want to close the application?", "Application closing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+
+		         if(code == JOptionPane.YES_OPTION){
+		        	System.exit(0);
+		         }
+			}
+		});
 		
 		JMenuItem miStudent = new JMenuItem("Students", new ImageIcon("images/student_button.png"));
 		miStudent.setMnemonic(KeyEvent.VK_S);
@@ -76,10 +95,12 @@ public class MenuBar extends JMenuBar {
 		JMenuItem miEdit = new JMenuItem("Edit", new ImageIcon("images/edit_button.png"));
 		miEdit.setMnemonic(KeyEvent.VK_E);
 		miEdit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
+		miEdit.addActionListener(new EditButtonListener());
 		
 		JMenuItem miDelete = new JMenuItem("Delete", new ImageIcon("images/delete_button.png"));
 		miDelete.setMnemonic(KeyEvent.VK_D);
 		miDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
+		miDelete.addActionListener(new DeleteButtonListener());
 		
 		editMenu.add(miEdit);
 		editMenu.addSeparator();
@@ -95,6 +116,16 @@ public class MenuBar extends JMenuBar {
 		JMenuItem miAbout = new JMenuItem("About", new ImageIcon("images/about_button.png"));
 		miAbout.setMnemonic(KeyEvent.VK_A);
 		miAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
+		miAbout.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {	
+				AboutDialog about = new AboutDialog();
+				about.pack();
+				about.setLocationRelativeTo(null);
+				about.setVisible(true);
+			}
+		});
 		
 		helpMenu.add(miHelp);
 		helpMenu.addSeparator();

@@ -1,11 +1,17 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import enumeracije.GodinaIzvodjenja;
 import enumeracije.Semestar;
 
-public class Predmet {
+public class Predmet implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private String sifraPredmeta;
 	private String nazivPredmeta;
@@ -18,12 +24,6 @@ public class Predmet {
 	
 	//konstruktori
 	
-	
-	public Predmet() {
-		super();
-	}
-
-
 	public Predmet(String sifraPredmeta, String nazivPredmeta, Semestar semestar, GodinaIzvodjenja godinaIzvodjenja,
 			Profesor profesor, int espbPoeni, ArrayList<Student> listaPolozenih, ArrayList<Student> listaNepolozenih) {
 		super();
@@ -39,11 +39,9 @@ public class Predmet {
 	
 	//get i set metode
 
-
 	public String getSifraPredmeta() {
 		return sifraPredmeta;
 	}
-
 
 	public void setSifraPredmeta(String sifraPredmeta) {
 		this.sifraPredmeta = sifraPredmeta;
@@ -118,7 +116,20 @@ public class Predmet {
 	public void setListaNepolozenih(ArrayList<Student> listaNepolozenih) {
 		this.listaNepolozenih = listaNepolozenih;
 	}
+
+	public String outGodIzv(GodinaIzvodjenja g) {
+			String out = "";
+			
+			switch(g) {
+			case PRVA : out = "FIRST"; break;                                   
+			case DRUGA : out = "SECOND"; break;                                  
+			case TRECA : out = "THIRD"; break;                                  
+			case CETVRTA : out = "FOURTH"; break;                                
+			}
+			
+			return out;
+		}
+	}
 	
 	
 
-}
