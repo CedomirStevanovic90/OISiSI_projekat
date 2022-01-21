@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import view.AddOrEditProfesor;
+import view.GlavniProzor;
 import view.TabelaPredmeti;
 
 public class UkloniPredmetProfesoruButtonListener implements ActionListener {
@@ -28,6 +29,7 @@ public class UkloniPredmetProfesoruButtonListener implements ActionListener {
 		if(code == JOptionPane.YES_OPTION) {
 			AddOrEditProfesor.controller.ukloniPredmetKodProfesora(AddOrEditProfesor.professor, izabraniPredmeti);
 			TabelaPredmeti.profesori.updateTable(AddOrEditProfesor.professor.getBrojLicneKarte(), 2);
+			GlavniProzor.serialize();
 		}
 	}
 }

@@ -22,6 +22,7 @@ import model.Profesor;
 import model.Student;
 import controller.Checker;
 import controller.ControllerPredmet;
+import controller.DodajProfesoraPredmetuButtonLIstener;
 import controller.PredmetFocusListeners;
 
 public class AddOrEditPredmet extends JPanel {
@@ -34,10 +35,13 @@ public class AddOrEditPredmet extends JPanel {
 	public static AddOrEditPredmet inst;
 	
 	private ControllerPredmet controller;
-	private static int brTacnihPolja = 0;
-	static JTextField textID, textNaziv, textESPB;
+	public static int brTacnihPolja = 0;
+	public static JTextField textID, textNaziv, textESPB, textProfesor;
 	public static JButton potvrdi;
-	private Predmet predmet;
+	public static Predmet predmet;
+	public static JButton minus, plus;
+	public static boolean imaProfesora;
+	public static Profesor profesor;
 	
 	public AddOrEditPredmet(int mode, AddOrEditDialog d) {
 		
@@ -66,14 +70,16 @@ public class AddOrEditPredmet extends JPanel {
 		String[] semestri = {"Winter", "Summer"};
 		JComboBox<String> textSemestar = new JComboBox<String>(semestri);
 		
-		Profesor profesor = null;
 		JLabel labelaProfesor = new JLabel("Professors* ");
-		JTextField textProfesor = new JTextField();
+		textProfesor = new JTextField();
+		textProfesor.setText("Professors* ");
+		textProfesor.setEditable(false);
 		if(mode == AddOrEditDialog.addMode)
 			textProfesor.setText("Professors* ");
 		textProfesor.setToolTipText("+/-, add/remove");
-		JButton plus = new JButton("+");
-		JButton minus = new JButton("-");
+		plus = new JButton("+");
+		
+		minus = new JButton("-");
 		
 		JLabel labelaESPB = new JLabel("ECTS* ");
 		textESPB = new JTextField();
@@ -104,6 +110,7 @@ public class AddOrEditPredmet extends JPanel {
 		dugmad.add(odustani);
 
 		if(mode == AddOrEditDialog.addMode) {
+			minus.setEnabled(false);
 			add(glavni, BorderLayout.NORTH);
 			add(dugmad, BorderLayout.SOUTH);
 		}
@@ -117,6 +124,17 @@ public class AddOrEditPredmet extends JPanel {
 				textID.setText(predmet.getSifraPredmeta());
 				textNaziv.setText(predmet.getNazivPredmeta());
 				
+				profesor = predmet.getProfesor();
+				
+				if(profesor == null) {
+					textProfesor.setText("Professors* ");
+					minus.setEnabled(false);
+				}else {
+					textProfesor.setText(profesor.getIme() + " " + profesor.getPrezime());
+					minus.setEnabled(true);
+					plus.setEnabled(false);
+				}
+				
 				textGodIzvodjenja.setSelectedItem(predmet.getGodinaIzvodjenja());
 				textSemestar.setSelectedItem(predmet.getSemestar());
 				
@@ -126,6 +144,8 @@ public class AddOrEditPredmet extends JPanel {
 				add(dugmad, BorderLayout.SOUTH);
 			}
 		}
+		
+		plus.addActionListener(new DodajProfesoraPredmetuButtonLIstener());
 		
 		odustani.addActionListener(new ActionListener() {
 			
@@ -167,6 +187,7 @@ public class AddOrEditPredmet extends JPanel {
 				
 				if(mode == AddOrEditDialog.addMode) {
 					Predmet predmet = new Predmet(ID, naziv, semestar, godina, profesor, ESPB, listaPolozenih, listaNepolozenih);
+					profesor.getSpisakPredmeta().add(predmet);
 					if(!controller.dodajPredmet(predmet))
 						JOptionPane.showMessageDialog(new JFrame(), "Unsuccessful adding of a subject, the subject with that ID already exists!", "Error" ,JOptionPane.ERROR_MESSAGE);
 				}
@@ -177,6 +198,8 @@ public class AddOrEditPredmet extends JPanel {
 					predmet.setSemestar(semestar);
 					predmet.setGodinaIzvodjenja(godina);
 					predmet.setEspbPoeni(ESPB);
+					predmet.setProfesor(profesor);
+					profesor.getSpisakPredmeta().add(predmet);
 					
 					if(!ID.equals(predmet.getSifraPredmeta())) {
 						if(controller.nadjiPredmet(ID) != null) {
@@ -205,7 +228,7 @@ public class AddOrEditPredmet extends JPanel {
 			brTacnihPolja++;
 		if(Checker.isValidECTS(textESPB.getText()))
 			brTacnihPolja++;
-		if(brTacnihPolja == 3) {
+		if(brTacnihPolja == 3 && imaProfesora == true) {
 			brTacnihPolja = 0;
 			return true;
 		}
